@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        var surName = prompt('Ваша фамилия?');
+        while (surName === '' || surName === null) {
+           surName = prompt('Введено некорректное значение. Попробуйте ввести фамилию снова');
+        } 
+        var firstName = prompt('Ваше имя?');
+        while (firstName === '' || firstName === null) {
+           firstName = prompt('Введено некорректное значение. Попробуйте ввести имя снова');
+        } 
+        var otch = prompt('Ваше отчество?');
+        while (otch === '' || otch === null) {
+           otch = prompt('Введено некорректное значение. Попробуйте ввести отчество снова');
+        } 
+        var age = prompt('Ваш возраст в годах');
+        var ageNom = Number(age);
+        while(isNaN(ageNom) || ageNom === '' || ageNom === null){
+            ageNom = prompt ('Введено некорректное значение. Попробуйте ввести возраст в годах снова');
+            ageNom = Number(ageNom);
+        }
+        var ageDays = (ageNom * 365);
+        var futureAge = (ageNom + 5);
+        var genderUser = confirm('Ваш пол - мужской?');
+        var man = 'мужской';
+        var woman = 'женский';
+        var gender;
+        var pension;
+        if (genderUser) {
+            gender = man;
+            if (ageNom >= 60) {
+                pension = 'ДА';
+            }
+            else { pension = 'НЕТ'; }
+        }
+        else {
+            gender = woman;
+            if (ageNom >= 55) {
+                pension = 'ДА';
+            }
+            else {
+                pension = 'НЕТ';
+            }
+        }
+        alert("ваше ФИО: " + surName + ' ' + firstName + ' ' + otch + "\nваш возраст в годах: " + ageNom + "\nваш возраст в днях: " + ageDays + "\nчерез 5 лет вам будет: " + futureAge + "\nваш пол: " + gender + "\nвы на пенсии: " + pension);        
+    </script>
+</body>
+</html>
