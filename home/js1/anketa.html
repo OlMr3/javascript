@@ -21,7 +21,7 @@
         } 
         var age = prompt('Ваш возраст в годах');
         var ageNom = Number(age);
-        while(isNaN(ageNom) || ageNom === '' || ageNom === null){
+        while(ageNom === 0 || (isNaN(ageNom) || ageNom === '')){
             ageNom = prompt ('Введено некорректное значение. Попробуйте ввести возраст в годах снова');
             ageNom = Number(ageNom);
         }
