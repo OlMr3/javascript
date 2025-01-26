@@ -9,6 +9,6 @@ function removeSpace(str){
     }
     return str.substring(start, end+1);
 }
-let user = prompt('Введите строку');
-let res = removeSpace(user);
+let userStr = prompt('Введите строку');
+let res = removeSpace(userStr);
 alert(`*${res}*`);
