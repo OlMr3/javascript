@@ -8,12 +8,14 @@ const colors=[ '', 'красный', 'оранжевый', 'жёлтый', 'зе
 let used={};
 console.log( 'цветов: ' + colorsCount );
 for ( let i=1; i<=colorsCount; i++ ) {
-    const n=randomDiap(1,7);
-    const colorName=colors[n];
-    if ( colorName in used )
-        continue;
-    used[colorName]=true;
-    console.log(colorName);
+    let n;
+    do{
+        n=randomDiap(1,7);
+    } while (n in used) {
+        used[n]=true;
+        const colorName=colors[n];
+        console.log(colorName);
+    } 
 }
 }
 mood(3);
