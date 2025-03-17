@@ -20,7 +20,7 @@
         console.log("На странице нет изображений.");
       }
     });
-    function initImages(images) {
+   function initImages(images) {
       images.forEach((elem, index) => {
         elem.style.position = 'absolute';
         elem.style.left = `${index * 200}px`;
@@ -30,8 +30,8 @@
    /* function initImages(images) {
       images.forEach(elem => {
         const initialCoords = elem.getBoundingClientRect();
-        const left = initialCoords.left + 'px';
-        const top = initialCoords.top + 'px';
+        const left = initialCoords.left + window.pageXOffset;
+        const top = initialCoords.top + window.pageXOffset;
         elem.style.position = 'absolute';
         elem.style.left = left;
         elem.style.top = top;
