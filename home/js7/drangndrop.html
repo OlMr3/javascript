@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset=UTF-8>
+  <title>drag&amp;drop</title>
+</head>
+
+<body style='min-height: 100vh'>
+  <img src='http://fe.it-academy.by/Sites/0000007/sax.jpg'>
+  <img src='http://fe.it-academy.by/Sites/0000007/Yin_and_Yang.png' width=100 style='vertical-align: 20px'>
+  <img src='http://fe.it-academy.by/Sites/0000007/Man-and-woman.png' width=150>
+  <img src='http://fe.it-academy.by/Sites/0000007/No_smoking.png' style='padding-left: 50px'>
+  <script>
+    let imgElems = document.querySelectorAll('img');
+    window.addEventListener('DOMContentLoaded', () => {
+      if (imgElems.length > 0) {
+        initImages(imgElems);
+      } else {
+        console.log("На странице нет изображений.");
+      }
+    });
+    function initImages(images) {
+      images.forEach((elem, index) => {
+        elem.style.position = 'absolute';
+        elem.style.left = `${index * 200}px`;
+      });
+    }
+
+   /* function initImages(images) {
+      images.forEach(elem => {
+        const initialCoords = elem.getBoundingClientRect();
+        const left = initialCoords.left + 'px';
+        const top = initialCoords.top + 'px';
+        elem.style.position = 'absolute';
+        elem.style.left = left;
+        elem.style.top = top;
+
+      });
+    }*/
+    let draggedImage = null;
+    let offsetX = 0;
+    let offsetY = 0;
+    let currentZIndex = 10;
+    function imgMouseDown(eo) {
+      eo = eo || window.event;
+      eo.preventDefault();
+      draggedImage = eo.target;
+      const coords = draggedImage.getBoundingClientRect();
+      offsetX = eo.clientX - coords.left;
+      offsetY = eo.clientY - coords.top;
+      draggedImage.style.zIndex = ++currentZIndex;
+      document.body.style.cursor = 'grabbing';
+    }
+    function imgMouseMove(eo) {
+      eo = eo || window.event;
+      eo.preventDefault();
+      if (draggedImage) {
+        const newLeft = eo.clientX - offsetX + 'px';
+        const newTop = eo.clientY - offsetY + 'px';
+        draggedImage.style.left = newLeft;
+        draggedImage.style.top = newTop;
+      }
+    }
+    function imgMouseUp(eo) {
+      eo = eo || eo.event;
+      eo.preventDefault();
+      if (draggedImage) {
+        draggedImage.style.zIndex = currentZIndex;
+        draggedImage = null;
+        document.body.style.cursor = 'auto';
+      }
+    }
+    imgElems.forEach(image => {
+      image.addEventListener('mousedown', imgMouseDown);
+    });
+    document.body.addEventListener('mousemove', imgMouseMove);
+    document.body.addEventListener('mouseup', imgMouseUp);
+  </script>
+
+</body>
+
+</html>
