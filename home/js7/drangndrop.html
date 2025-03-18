@@ -57,6 +57,7 @@
       offsetY = eo.clientY - coords.top;
       draggedImage.style.zIndex = ++currentZIndex;
       document.body.style.cursor = 'grabbing';
+      document.body.addEventListener('mousemove', imgMouseMove);
     }
     function imgMouseMove(eo) {
       eo = eo || window.event;
@@ -75,12 +76,9 @@
         draggedImage.style.zIndex = currentZIndex;
         draggedImage = null;
         document.body.style.cursor = 'auto';
+        document.body.removeEventListener('mousemove', imgMouseMove);
       }
     }
-    /*imgElems.forEach(image => {
-      image.addEventListener('mousedown', imgMouseDown);
-    });*/
-    document.body.addEventListener('mousemove', imgMouseMove);
     document.body.addEventListener('mouseup', imgMouseUp);
   </script>
 
