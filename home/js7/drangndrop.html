@@ -73,7 +73,6 @@
       eo = eo || eo.event;
       eo.preventDefault();
       if (draggedImage) {
-        draggedImage.style.zIndex = currentZIndex;
         draggedImage = null;
         document.body.style.cursor = 'auto';
         document.body.removeEventListener('mousemove', imgMouseMove);
