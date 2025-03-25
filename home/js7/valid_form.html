@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Форма добавления сайта</title>
+    <style>
+        label {
+            margin-bottom: 5px;
+        }
+
+
+        [name=developer] {
+            width: 453px;
+            margin-left: 53px;
+        }
+
+        [name=site] {
+            width: 453px;
+            margin-left: 42px;
+        }
+
+        [name=url] {
+            width: 300px;
+            margin-left: 75px;
+        }
+
+        [name=date] {
+            width: 80px;
+            margin-left: 20px;
+        }
+
+        [name=posetiteli] {
+            width: 80px;
+            margin-left: 7px;
+        }
+
+        [name=mail] {
+            width: 200px;
+            margin-left: 37px;
+        }
+
+        [name=rubrica] {
+            width: 204px;
+            margin-left: 30px;
+        }
+
+        .radio {
+            display: inline-block;
+            width: 400px;
+        }
+
+        .radio>label {
+            margin-right: 64px;
+        }
+
+        [name=comment] {
+            margin-left: 25px;
+        }
+
+        [name=article] {
+            width: 608px;
+            height: 50px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Для внесения вашего сайта в каталог, заполните форму:</h1>
+    <form name="FFF" id="FFF" action="https://fe.it-academy.by/TestForm.php " method="post" novalidate>
+        <label>Разработчики:</label>
+        <input type="text" name="developer"><span id="razr"></span><br>
+        <label>Название сайта:</label>
+        <input type="text" name="site"><span id="nazv"></span><br>
+        <label>URL сайта:</label>
+        <input type="text" name="url"><span id="url"></span><br>
+        <label>Дата запуска сайта:</label>
+        <input type="date" name="date"><span id="date"></span><br>
+        <label>Посетителей в сутки:</label>
+        <input type="text" name="posetiteli"><span id="posetiteli"></span><br>
+        <label>E-mail для связи:</label>
+        <input type="text" name="mail"><span id="mail"></span><br>
+        <label>Рубрика каталога:</label>
+        <select name="rubrica">
+            <option value="1">здоровье</option>
+            <option value="2">домашний уют</option>
+            <option value="3">бытовая техника</option>
+        </select><span id="rubrica"></span><br>
+        <div class="radio">
+            <label>Размещение:</label>
+            <input type="radio" id="free" name="category" value="бесплатное">
+            <span>бесплатное</span>
+            <input type="radio" id="platnoe" name="category" value="платное">
+            <span>платное</span>
+            <input type="radio" id="vip" name="category" value="VIP">
+            <span>VIP</span>
+        </div><span id="radio"></span><br>
+        <label>Разрешить отзывы</label>
+        <input type="checkbox" name="comment"><span id="comment"></span><br>
+        <label>Описание сайта:</label><br>
+        <textarea name="article"></textarea><span id="article"></span><br>
+        <button type="submit">Опубликовать</button>
+    </form>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            document.forms.FFF.elements.developer.onblur = () => validRazr(false);
+            document.forms.FFF.elements.site.onblur = () => validNazv(false);
+            document.forms.FFF.elements.url.onblur = () => validUrl(false);
+            document.forms.FFF.elements.date.onblur = () => validDate(false);
+            document.forms.FFF.elements.posetiteli.onblur = () => validVisit(false);
+            document.forms.FFF.elements.mail.onblur = () => validMail(false);
+            document.forms.FFF.elements.rubrica.onchange = () => validRubrica(false);
+            document.forms.FFF.elements.category.onchange = () => validRadio(false);
+            document.forms.FFF.elements.comment.onchange = () => validComment(false);
+            document.forms.FFF.elements.article.onblur = () => validArticle(false);
+            document.forms.FFF.onsubmit = submit;
+        })
+        function validRazr(focusOnError) {
+            const elem = document.forms.FFF.elements.developer;
+            const value = elem.value;
+            let errCount = 0;
+            if (value.length > 5 && value.length < 30) {
+                document.getElementById("razr").innerHTML = "";
+            } else {
+                document.getElementById("razr").innerHTML = "заполните разработчиков. Количество символов должно быть от 5 до 30 символов";
+                document.getElementById("razr").style.color = 'red';
+                errCount++;
+                if (focusOnError)
+                    elem.focus();
+            }
+            return errCount;
+        }
+        function validNazv(focusOnError) {
+            const elem = document.forms.FFF.elements.site;
+            const value = elem.value;
+            let errCount = 0;
+            if (value.length > 5) {
+                document.getElementById("nazv").innerHTML = "";
+            } else {
+                document.getElementById("nazv").innerHTML = "заполните название сайта. Количество символов должно быть больше 5";
+                document.getElementById("nazv").style.color = 'red';
+                errCount++;
+                if (focusOnError)
+                    elem.focus();
+            }
+            return errCount;
+        }
+        function validUrl(focusOnError) {
+            const elem = document.forms.FFF.elements.url;
+            const value = elem.value;
+            let errCount = 0;
+            if (value.length > 4) {
+                document.getElementById("url").innerHTML = "";
+            } else {
+                document.getElementById("url").innerHTML = "заполните URL сайта. Количество символов должно быть больше 4";
+                document.getElementById("url").style.color = 'red';
+                errCount++;
+                if (focusOnError)
+                    elem.focus();
+            }
+            return errCount;
+        }
+        function validDate(focusOnError) {
+            const elem = document.forms.FFF.elements.date;
+            const value = elem.value;
+            let errCount = 0;
+            if (value) {
+                document.getElementById("date").innerHTML = "";
+            } else {
+                document.getElementById("date").innerHTML = "укажите дату";
+                document.getElementById("date").style.color = 'red';
+                errCount++;
+                if (focusOnError)
+                    elem.focus();
+            }
+            return errCount;
+        }
+        function validVisit(focusOnError) {
+            const elem = document.forms.FFF.elements.posetiteli;
+            const value = elem.value;
+            let errCount = 0;
+            if ((value && !isNaN(value)) && parseInt(value)) {
+                document.getElementById("posetiteli").innerHTML = "";
+            } else {
+                document.getElementById("posetiteli").innerHTML = "Введите количество посетителей цифрами";
+                document.getElementById("posetiteli").style.color = 'red';
+                errCount++;
+                if (focusOnError)
+                    elem.focus();
+            }
+            return errCount;
+        }
+        function validMail(focusOnError) {
+            const elem = document.forms.FFF.elements.mail;
+            const value = elem.value;
+            let errCount = 0;
+            if (value.length > 5) {
+                document.getElementById("mail").innerHTML = "";
+            } else {
+                document.getElementById("mail").innerHTML = "укажите ваш email. Количество символов должно быть больше 5";
+                document.getElementById("mail").style.color = 'red';
+                errCount++;
+                if (focusOnError)
+                    elem.focus();
+            }
+            return errCount;
+        }
+        function validRubrica(focusOnError) {
+            const elem = document.forms.FFF.elements.rubrica;
+            const value = elem.value;
+            let errCount = 0;
+            if (value === "1") {
+                document.getElementById("rubrica").innerHTML = "выберите другой вариант";
+                document.getElementById("rubrica").style.color = 'red';
+                errCount++;
+                if (focusOnError)
+                    elem.focus();
+            } else {
+                document.getElementById("rubrica").innerHTML = "";
+            }
+            return errCount;
+        }
+        function validRadio(focusOnError) {
+            const radioGroup = document.querySelectorAll('[name=category]');
+            let checkedValue = null;
+            let errCount = 0;
+            for (let i = 0; i < radioGroup.length; i++) {
+                if (radioGroup[i].checked) {
+                    checkedValue = radioGroup[i].value;
+                    break;
+                }
+            }
+            if (checkedValue) {
+                document.getElementById("radio").innerHTML = "";
+            } else {
+                document.getElementById("radio").innerHTML = "выберите вариант";
+                document.getElementById("radio").style.color = 'red';
+                errCount++;
+                if (focusOnError) {
+                    radioGroup[0].focus();
+                }
+            }
+
+            return errCount;
+        }
+        function validComment(focusOnError) {
+            const elem = document.forms.FFF.elements.comment;
+            const value = elem.checked;
+            let errCount = 0;
+            if (!value) {
+                document.getElementById("comment").innerHTML = "Разрешите отзывы";
+                document.getElementById("comment").style.color = 'red';
+                errCount++;
+                if (focusOnError)
+                    elem.focus();
+            } else {
+                document.getElementById("comment").innerHTML = "";
+            }
+            return errCount;
+        }
+        function validArticle(focusOnError) {
+            const elem = document.forms.FFF.elements.article;
+            const value = elem.value;
+            let errCount = 0;
+            if (value.length > 20) {
+                document.getElementById("article").innerHTML = "";
+            } else {
+                document.getElementById("article").innerHTML = "Заполните описание. Оно должно быть больше 20 символов";
+                document.getElementById("article").style.color = 'red';
+                errCount++;
+                if (focusOnError)
+                    elem.focus();
+            }
+            return errCount;
+        }
+        function submit(eo) {
+            let errCount = 0;
+            errCount += validRazr(!errCount);
+            errCount += validNazv(!errCount);
+            errCount += validUrl(!errCount);
+            errCount += validDate(!errCount);
+            errCount += validVisit(!errCount);
+            errCount += validMail(!errCount);
+            errCount += validRubrica(!errCount);
+            errCount += validRadio(!errCount);
+            errCount += validComment(!errCount);
+            errCount += validArticle(!errCount);
+            if (errCount > 0)
+                eo.preventDefault();
+        }
+    </script>
+</body>
+
+</html>
