@@ -110,7 +110,7 @@
             document.forms.FFF.elements.posetiteli.onblur = () => validVisit(false);
             document.forms.FFF.elements.mail.onblur = () => validMail(false);
             document.forms.FFF.elements.rubrica.onchange = () => validRubrica(false);
-            document.forms.FFF.elements.category.onchange = () => validRadio(false);
+            document.querySelector('.radio').addEventListener('click', () => validRadio(false));
             document.forms.FFF.elements.comment.onchange = () => validComment(false);
             document.forms.FFF.elements.article.onblur = () => validArticle(false);
             document.forms.FFF.onsubmit = submit;
