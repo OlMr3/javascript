@@ -170,7 +170,7 @@
             racketH.racket1PosY += racketH.racket1Speed;
             // вылетела ли ракетка ниже пола?
             if (racketH.racket1PosY + racketH.height > racketAreaH.height) {
-                racketH.racket1PosY = racketAreaH.height - racketH.heigh;
+                racketH.racket1PosY = fieldHeight + racketAreaH.height - racketH.heigh;
             }
             // вылетела ли ракетка выше потолка?
             if (racketH.racket1PosY < 0) {
@@ -179,23 +179,23 @@
             racketH.racket2PosY += racketH.racket2Speed;
            // вылетела ли ракетка ниже пола?
             if (racketH.racket2PosY + racketH.height > racketAreaH.height) {
-                racketH.racket2PosY = racketAreaH.height - racketH.height;
+                racketH.racket2PosY = fieldHeight + racketAreaH.height - racketH.height;
             }
             if (racketH.racket2PosY < 0) {
                 racketH.racket2PosY = 0;
             }
             ballH.posX += ballH.speedX;
             // вылетел ли мяч правее стены?
-            if (((ballH.posY + ball.height) < racketH.racket2PosY || ballH.posY > (racketH.racket2PosY + racketH.height)) && ballH.posX + ballH.width >= field.width) {
+            if (((ballH.posY + ball.height) < racketH.racket2PosY || ballH.posY > (racketH.racket2PosY + racketH.height)) && ballH.posX + ballH.width >= areaH.width) {
                 score1 += 1;
                 scoreBoardInnerHTML();
                 ballH.speedX = 0;
                 ballH.speedY = 0;
-                ballH.posX = field.width - ballH.width - 1;
+                ballH.posX = areaH.width - ballH.width - 1;
             } else if (!(ballH.posY + ball.height < racketH.racket2PosY || ballH.posY > (racketH.racket2PosY + racketH.height)) && ballH.posX + ballH.width > (racketH.racket2PosX)) {
                 ballH.speedX = - ballH.speedX;
                 ballH.speedY = - ballH.speedY;
-                ballH.posX = field.getBoundingClientRect().left + field.getBoundingClientRect().width - racketH.width - ballH.width;
+                ballH.posX = areaH.width - racketH.width - ballH.width;
             }
              // вылетел ли мяч левее стены?
             if ((ballH.posY + ball.height < racketH.racket1PosY || ballH.posY > (racketH.racket1PosY + racketH.height)) && ballH.posX <= 0) {
@@ -203,7 +203,7 @@
                 scoreBoardInnerHTML();
                 ballH.speedX = 0;
                 ballH.speedY = 0;
-                ballH.posX = 1;
+                ballH.posX = 0;
             } else if (!(ballH.posY + ball.height < racketH.racket1PosY || ballH.posY > (racketH.racket1PosY + racketH.height)) && ballH.posX < (racketH.width + racketH.racket1PosX)) {
                 ballH.speedX = - ballH.speedX;
                 ballH.speedY = - ballH.speedY;
