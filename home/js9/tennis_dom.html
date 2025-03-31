@@ -89,6 +89,8 @@
             racket2PosX: fieldWidth - racketWidth,
             racket2PosY: (fieldHeight - racketHeight) / 2,
             racket2Speed: 0,
+            width: 20,
+            height: 110,
             update: function () {
                 const racket1 = document.getElementById('racket1');
                 const racket2 = document.getElementById('racket2');
@@ -108,6 +110,8 @@
             posY: (fieldHeight - ballHeight) / 2,
             speedX: 0,
             speedY: 0,
+            width: 40,
+            height: 40,
             update: function () {
                 const ball = document.getElementById('ball');
                 ball.style.left = this.posX + 'px';
