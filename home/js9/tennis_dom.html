@@ -182,10 +182,10 @@
             if (!gameStarted) {
                 gameStarted = true;
                 ballH.update()
-                const rightMinAngle = Math.PI / 3;  // Минимальный угол для правого полупространства (60 градусов)
-                const rightMaxAngle = 2 * Math.PI / 3;  // Максимальный угол для правого полупространства (120 градусов)
-                const leftMinAngle = 4 * Math.PI / 3;  // Минимальный угол для левого полупространства (240 градусов)
-                const leftMaxAngle = 5 * Math.PI / 3;  // Максимальный угол для левого полупространства (300 градусов)
+                const leftMinAngle = Math.PI / 3;  // Минимальный угол для левого полупространства (60 градусов)
+                const leftMaxAngle = 2 * Math.PI / 3;  // Максимальный угол для левого  полупространства (120 градусов)
+                const rightMinAngle = 4 * Math.PI / 3;  // Минимальный угол для правого полупространства (240 градусов)
+                const rightMaxAngle = 5 * Math.PI / 3;  // Максимальный угол для правого полупространства (300 градусов)
                 const side = Math.random() < 0.5 ? -1 : 1;  // Выбор стороны (слева/справа)
                 let angle;
                 if (side === -1) {
@@ -200,6 +200,7 @@
 
                 ballH.speedX = Math.cos(angle) * speedOverall;
                 ballH.speedY = Math.sin(angle) * speedOverall;
+               
             }
         }
         setInterval(tick, 1000 / 60);
@@ -280,6 +281,7 @@
                 ballH.update();
             }
         }
+        ballH.update();
         function stopGame() {
             gameStarted = false; // Останавливаем игру
             ballH.speedX = 0;    // Останавливаем мяч
