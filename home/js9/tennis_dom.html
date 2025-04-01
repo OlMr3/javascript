@@ -74,11 +74,10 @@
         field.style.height = `${fieldHeight}px`;
         const startBut = document.getElementById('buttonStart')
         startBut.addEventListener('click', () => {
-            if (!gameStarted) { // Перезапустим игру только если она остановлена
-                ballH.posX = areaH.width / 2 - ballH.width / 2; // Ставим мяч в центр
-                ballH.posY = areaH.height / 2 - ballH.height / 2;
-                start(); // Запускаем игру заново
-            }
+                ballH.posX = (fieldWidth - ballWidth) / 2;
+                ballH.posY = (fieldHeight - ballHeight) / 2;
+                start();
+            
         });
         const scoreBoard = document.getElementById('scoreBoard');
         let score1 = 0;
@@ -153,7 +152,6 @@
                 racketH.racket2Speed = 4;
             }
         });
-
         window.addEventListener('keyup', function (eo) {
             eo = eo || window.event;
             eo.preventDefault();
@@ -176,16 +174,14 @@
         function scoreBoardInnerHTML() {
             scoreBoard.innerHTML = score1 + ':' + score2;
         };
-        let gameStarted = false;
-
         function start() {
-            if (!gameStarted) {
-                gameStarted = true;
                 ballH.update()
-                const leftMinAngle = Math.PI / 3;  // Минимальный угол для левого полупространства (60 градусов)
-                const leftMaxAngle = 2 * Math.PI / 3;  // Максимальный угол для левого  полупространства (120 градусов)
-                const rightMinAngle = 4 * Math.PI / 3;  // Минимальный угол для правого полупространства (240 градусов)
-                const rightMaxAngle = 5 * Math.PI / 3;  // Максимальный угол для правого полупространства (300 градусов)
+               /* ballH.speedX = 8;
+                ballH.speedY = 3;*/
+                const leftMinAngle = 5 * Math.PI / 6;  // Минимальный угол для левого полупространства (150 градусов)
+                const leftMaxAngle = 7 * Math.PI / 6;  // Максимальный угол для левого  полупространства (210 градусов)
+                const rightMinAngle = 2 * Math.PI;  // Минимальный угол для правого полупространства (360 градусов)
+                const rightMaxAngle = 11 * Math.PI / 6;  // Максимальный угол для правого полупространства (330 градусов)
                 const side = Math.random() < 0.5 ? -1 : 1;  // Выбор стороны (слева/справа)
                 let angle;
                 if (side === -1) {
@@ -195,98 +191,86 @@
                     // Правое полупространство
                     angle = rightMinAngle + Math.random() * (rightMaxAngle - rightMinAngle);
                 }
-
                 const speedOverall = 10; // Общая величина скорости мяча
-
                 ballH.speedX = Math.cos(angle) * speedOverall;
-                ballH.speedY = Math.sin(angle) * speedOverall;
-               
-            }
+                ballH.speedY = Math.sin(angle) * speedOverall;            
         }
         setInterval(tick, 1000 / 60);
         function tick() {
-            if (gameStarted) {
-                racketH.update();
-                racketH.racket1PosY += racketH.racket1Speed;
-                // вылетела ли левая ракетка ниже пола?
-                if (racketH.racket1PosY + racketH.height > racketAreaH.height) {
-                    racketH.racket1PosY = /*fieldHeight + */racketAreaH.height - racketH.heigh;
-                }
-                // вылетела ли левая ракетка выше потолка?
-                if (racketH.racket1PosY < 0) {
-                    racketH.racket1PosY = 0;
-                }
-                racketH.racket2PosY += racketH.racket2Speed;
-                // вылетела ли правая ракетка ниже пола?
-                if (racketH.racket2PosY + racketH.height > racketAreaH.height) {
-                    racketH.racket2PosY = /*fieldHeight + */racketAreaH.height - racketH.height;
-                }
-                // вылетела ли правая ракетка выше потолка?
-                if (racketH.racket2PosY < 0) {
-                    racketH.racket2PosY = 0;
-                }
-                ballH.posX += ballH.speedX;
-                // вылетел ли мяч правее стены?
-                if (ballH.posX + ballH.width >= areaH.width) {
-                    score1 += 1;
-                    scoreBoardInnerHTML();
-                    ballH.speedX = 0;
-                    ballH.speedY = 0;
-                    ballH.posX = areaH.width - ballH.width - 1;
-                    stopGame();
-                }
-                //столкновение с правой ракеткой
-                if (
-                    ballH.posY + ballH.height >= racketH.racket2PosY &&   // Если мяч ниже или на уровне верхней части ракетки 2
-                    ballH.posY <= racketH.racket2PosY + racketH.height && // Если мяч выше или на уровне нижней части ракетки 2
-                    ballH.posX + ballH.width >= racketH.racket2PosX &&     // Если мяч касается правой стороны ракетки 2
-                    ballH.posX <= racketH.racket2PosX + racketH.width      // Если мяч касается левой стороны ракетки 2
-                ) {
-                    // Изменяем направление движения мяча после столкновения с ракеткой 2
-                    ballH.speedX = -ballH.speedX;
-                    ballH.speedY = - ballH.speedY;
-                    ballH.posX = areaH.width - racketH.width - ballH.width;
-                }
-                //вылетел ли мяч левее стены?
-                if (ballH.posX <= 0) {
-                    score2 += 1;
-                    scoreBoardInnerHTML();
-                    ballH.speedX = 0;
-                    ballH.speedY = 0;
-                    ballH.posX = 1;
-                    stopGame();
-                }
-                //столкновение с левой ракеткой
-                if (
-                    ballH.posY + ballH.height >= racketH.racket1PosY &&   // Если мяч ниже или на уровне верхней части ракетки 1
-                    ballH.posY <= racketH.racket1PosY + racketH.height && // Если мяч выше или на уровне нижней части ракетки 1
-                    ballH.posX + ballH.width >= racketH.racket1PosX &&     // Если мяч касается правой стороны ракетки 1
-                    ballH.posX <= racketH.racket1PosX + racketH.width      // Если мяч касается левой стороны ракетки 1
-                ) {
-                    // Изменяем направление движения мяча после столкновения с ракеткой 1
-                    ballH.speedX = -ballH.speedX;
-                    ballH.posX = racketH.width;
-                }
-                ballH.posY += ballH.speedY;
-                //вылетел ли мяч ниже пола
-                if (ballH.posY + ball.height > areaH.height) {
-                    ballH.speedY = - ballH.speedY;
-                    ballH.posY = areaH.height - ballH.height;
-                }
-                // вылетел ли мяч выше потолка?
-                if (ballH.posY < 0) {
-                    ballH.speedY = - ballH.speedY;
-                    ballH.posY = 0;
-                }
-                ballH.update();
+            racketH.update();
+            racketH.racket1PosY += racketH.racket1Speed;
+            // вылетела ли левая ракетка ниже пола?
+            if (racketH.racket1PosY + racketH.height > racketAreaH.height) {
+                racketH.racket1PosY = /*fieldHeight + */racketAreaH.height - racketH.heigh;
             }
+            // вылетела ли левая ракетка выше потолка?
+            if (racketH.racket1PosY < 0) {
+                racketH.racket1PosY = 0;
+            }
+            racketH.racket2PosY += racketH.racket2Speed;
+            // вылетела ли правая ракетка ниже пола?
+            if (racketH.racket2PosY + racketH.height > racketAreaH.height) {
+                racketH.racket2PosY = /*fieldHeight + */racketAreaH.height - racketH.height;
+            }
+            // вылетела ли правая ракетка выше потолка?
+            if (racketH.racket2PosY < 0) {
+                racketH.racket2PosY = 0;
+            }
+            ballH.posX += ballH.speedX;
+            // вылетел ли мяч правее стены?
+            if (ballH.posX + ballH.width >= areaH.width) {
+                score1 += 1;
+                scoreBoardInnerHTML();
+                ballH.speedX = 0;
+                ballH.speedY = 0;
+                ballH.posX = areaH.width - ballH.width - 1;
+            }
+            //столкновение с правой ракеткой
+            if (
+                ballH.posY + ballH.height >= racketH.racket2PosY &&   // Если мяч ниже или на уровне верхней части ракетки 2
+                ballH.posY <= racketH.racket2PosY + racketH.height && // Если мяч выше или на уровне нижней части ракетки 2
+                ballH.posX + ballH.width >= racketH.racket2PosX &&     // Если мяч касается правой стороны ракетки 2
+                ballH.posX <= racketH.racket2PosX + racketH.width      // Если мяч касается левой стороны ракетки 2
+            ) {
+                // Изменяем направление движения мяча после столкновения с ракеткой 2
+                ballH.speedX = -ballH.speedX;
+                ballH.speedY = - ballH.speedY;
+                ballH.posX = areaH.width - racketH.width - ballH.width;
+            }
+            //вылетел ли мяч левее стены?
+            if (ballH.posX <= 0) {
+                score2 += 1;
+                scoreBoardInnerHTML();
+                ballH.speedX = 0;
+                ballH.speedY = 0;
+                ballH.posX = 1;
+            }
+            //столкновение с левой ракеткой
+            if (
+                ballH.posY + ballH.height >= racketH.racket1PosY &&   // Если мяч ниже или на уровне верхней части ракетки 1
+                ballH.posY <= racketH.racket1PosY + racketH.height && // Если мяч выше или на уровне нижней части ракетки 1
+                ballH.posX + ballH.width >= racketH.racket1PosX &&     // Если мяч касается правой стороны ракетки 1
+                ballH.posX <= racketH.racket1PosX + racketH.width      // Если мяч касается левой стороны ракетки 1
+            ) {
+                // Изменяем направление движения мяча после столкновения с ракеткой 1
+                ballH.speedX = -ballH.speedX;
+                ballH.posX = racketH.width;
+            }
+            ballH.posY += ballH.speedY;
+            //вылетел ли мяч ниже пола
+            if (ballH.posY + ballH.height > areaH.height) {
+                ballH.speedY = - ballH.speedY;
+                ballH.posY = areaH.height - ballH.height;
+            }
+            // вылетел ли мяч выше потолка?
+            if (ballH.posY < 0) {
+                ballH.speedY = - ballH.speedY;
+                ballH.posY = 0;
+            }
+            ballH.update();
         }
+
         ballH.update();
-        function stopGame() {
-            gameStarted = false; // Останавливаем игру
-            ballH.speedX = 0;    // Останавливаем мяч
-            ballH.speedY = 0;
-        }
     </script>
 </body>
 
