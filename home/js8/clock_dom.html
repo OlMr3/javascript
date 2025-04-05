@@ -40,6 +40,12 @@
         box-shadow: 0 0 4px rgba(0, 0, 0, 0.25);
         text-align: center;
     }
+    #timeText{
+        position: absolute;
+        width: 100%;
+        text-align: center;
+        font-weight: bold;
+    }
 </style>
 
 <body>
@@ -49,6 +55,7 @@
         <div id="secarr"></div>
         <div id="minarr"></div>
         <div id="hourarr"></div>
+        <div id="timeText"></div>
     </div>
     <script>
         function buildClock() {
@@ -80,6 +87,9 @@
             hr.style.left = center + 'px';
             hr.style.top = center - parseInt(hrH) + 'px';
             hr.style.zIndex = '4'
+            const timeT = document.getElementById('timeText');
+            timeT.style.top = center * 0.5 + 'px';
+            timeT.style.fontSize = diam * 0.04 + 'px';
             const centerX = center;
             const centerY = center;
             const circle = diam % 92;
@@ -96,6 +106,7 @@
                 hourElem.style.position = 'absolute';
                 hourElem.style.left = (hourX - hourRadius) + 'px';
                 hourElem.style.top = (hourY - hourRadius) + 'px';
+                hourElem.style.fontSize = `${circle * 0.9}px`
                 hourElem.textContent = h;
                 hourElem.style.lineHeight = (hourRadius * 2) + 'px';
                 clock.appendChild(hourElem);
@@ -112,10 +123,10 @@
             const ma = 360 / 60 * (m + s / 60);
             const ha = 360 / 12 * (h + m / 60);
             console.log(`Текущее время: ${h}:${m}:${s}`);
-            document.getElementById('secarr').style.transform = `rotate(${sa}deg)`
-            document.getElementById('minarr').style.transform = `rotate(${ma}deg)`
-            document.getElementById('hourarr').style.transform = `rotate(${ha}deg)`
-            
+            document.getElementById('secarr').style.transform = `rotate(${sa}deg)`;
+            document.getElementById('minarr').style.transform = `rotate(${ma}deg)`;
+            document.getElementById('hourarr').style.transform = `rotate(${ha}deg)`;
+            document.getElementById('timeText').textContent = dt.toLocaleTimeString();
         }
         function startClock() {
             buildClock(); 
