@@ -1,31 +1,27 @@
 class LocStorageClass {
     constructor(storageKey) {
         this.storageKey = storageKey;
+        this.storage = JSON.parse(localStorage.getItem(this.storageKey)) || {};
     }
     addValue(key, value) {
-        let storageData =
-            JSON.parse(localStorage.getItem(this.storageKey)) || {};
-        storageData[key] = value;
-        localStorage.setItem(this.storageKey, JSON.stringify(storageData));
+        this.storage[key] = value;
+        localStorage.setItem(this.storageKey, JSON.stringify(this.storage));
     }
     getValue(key) {
-        let storageData = JSON.parse(localStorage.getItem(this.storageKey)) || {};
-        if (storageData.hasOwnProperty(key)) {
-            return storageData[key];
+        if (this.storage.hasOwnProperty(key)) {
+            return this.storage[key];
         }
     }
     deleteValue(key) {
-        let storageData = JSON.parse(localStorage.getItem(this.storageKey)) || {};
-        if (storageData.hasOwnProperty(key)) {
-            delete storageData[key];
-            localStorage.setItem(this.storageKey, JSON.stringify(storageData));
+        if (this.storage.hasOwnProperty(key)) {
+            delete this.storage[key];
+            localStorage.setItem(this.storageKey, JSON.stringify(this.storage));
             return true;
         }
         return false;
     }
     getKeys() {
-        let storageData = JSON.parse(localStorage.getItem(this.storageKey)) || {};
-        return Object.keys(storageData);
+        return Object.keys(this.storage);
     }
 }
 var drinkStorage = new LocStorageClass("drinkStorage");
