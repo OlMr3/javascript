@@ -40,6 +40,7 @@ class Game {
         document.getElementById('startButton').addEventListener('click', () => this.start());
         document.getElementById('restartButton').addEventListener('click', () => this.restart());
         document.addEventListener('keydown', (event) => {
+            event.preventDefault;
             if (!this.isGameRunning) return;
             switch (event.key) {
                 case 'ArrowUp':
@@ -127,10 +128,25 @@ this.controls.addEventListener('touchstart', (event) => {
      }*/
     resize() {
         /* this.updateDimensions();*/
+        const minWidth = 400; // Минимальная ширина канваса
+    const minHeight = 300; // Минимальная высота канваса
+
         const oldWidth = this.width;
         const oldHeight = this.height;
-        this.width = Math.floor(window.innerWidth * 0.8 / this.cellSize) * this.cellSize;
-        this.height = Math.floor(window.innerHeight * 0.8 / this.cellSize) * this.cellSize;
+        let newWidth = Math.floor(window.innerWidth * 0.8 / this.cellSize) * this.cellSize;
+        let newHeight = Math.floor(window.innerHeight * 0.8 / this.cellSize) * this.cellSize;
+       /* this.width = Math.floor(window.innerWidth * 0.8 / this.cellSize) * this.cellSize;
+        this.height = Math.floor(window.innerHeight * 0.8 / this.cellSize) * this.cellSize;*/
+        if (newWidth < minWidth) {
+            newWidth = minWidth;
+        }
+        if (newHeight < minHeight) {
+            newHeight = minHeight;
+        }
+    
+        this.width = newWidth;
+        this.height = newHeight;
+        
         this.canvas.width = this.width;
         this.canvas.height = this.height;
         this.snake.size = this.cellSize; // Обновляем размер змейки
