@@ -70,10 +70,8 @@ class Game {
         });
         this.controls = document.getElementById('controls');
 
-this.controls.addEventListener('click', (event) => {
-    const target = event.target;
-
-    switch (target.id) {
+const handleDirectionChange = (direction) => {
+    switch (direction) {
         case 'up':
             this.snake.setDirection(0, -1);
             this.turnSound.play();
@@ -91,7 +89,20 @@ this.controls.addEventListener('click', (event) => {
             this.turnSound.play();
             break;
     }
+};
+
+this.controls.addEventListener('click', (event) => {
+    const target = event.target;
+    handleDirectionChange(target.id);
 });
+
+// Добавление обработчиков для касания
+this.controls.addEventListener('touchstart', (event) => {
+    const target = event.target;
+    handleDirectionChange(target.id);
+    event.preventDefault(); // Предотвращаем стандартное поведение
+});
+
         this.resize();
     }
     /* updateDimensions() {
