@@ -3,7 +3,7 @@ class Game {
         this.container = document.getElementById('container')
         this.canvas = document.getElementById(canvasId);
         this.ctx = this.canvas.getContext('2d');
-        this.cellSize = 30;
+        this.cellSize = 25;
         /* this.updateDimensions();*/
         this.width = Math.floor(window.innerWidth * 0.8 / this.cellSize) * this.cellSize;  // 80% ширины окна
         this.height = Math.floor(window.innerHeight * 0.8 / this.cellSize) * this.cellSize; // 80% высоты окна
@@ -128,28 +128,31 @@ this.controls.addEventListener('touchstart', (event) => {
      }*/
     resize() {
         /* this.updateDimensions();*/
-        const minWidth = 400; // Минимальная ширина канваса
-    const minHeight = 300; // Минимальная высота канваса
+    const maxWidth = 1000; // Максимальная ширина канваса
+    const maxHeight = 800; // Минимальная высота канваса
 
         const oldWidth = this.width;
         const oldHeight = this.height;
-        let newWidth = Math.floor(window.innerWidth * 0.8 / this.cellSize) * this.cellSize;
-        let newHeight = Math.floor(window.innerHeight * 0.8 / this.cellSize) * this.cellSize;
+        if (window.innerWidth <= 650){
+            this.cellSize = 15;
+        } else {
+            this.cellSize = 25;
+        }
+        this.width = Math.min(Math.floor(window.innerWidth * 0.8 / this.cellSize) * this.cellSize, maxWidth);
+        this.height = Math.min(Math.floor(window.innerHeight * 0.8 / this.cellSize) * this.cellSize, maxHeight);
        /* this.width = Math.floor(window.innerWidth * 0.8 / this.cellSize) * this.cellSize;
         this.height = Math.floor(window.innerHeight * 0.8 / this.cellSize) * this.cellSize;*/
-        if (newWidth < minWidth) {
-            newWidth = minWidth;
-        }
-        if (newHeight < minHeight) {
-            newHeight = minHeight;
+        if (window.innerWidth <= 650){
+            this.width = 400;
+            this.height = 300;
         }
     
-        this.width = newWidth;
-        this.height = newHeight;
         
+
         this.canvas.width = this.width;
         this.canvas.height = this.height;
-        this.snake.size = this.cellSize; // Обновляем размер змейки
+        this.snake.size = this.cellSize;
+        this.food.size = this.cellSize; // Обновляем размер змейки
         /*  this.food.size = this.cellSize; // Обновляем размер еды
           if (this.bomb) {
               this.bomb.size = this.cellSize; // Обновляем размер бомбы
