@@ -35,11 +35,13 @@
             background: darkseagreen;
             padding: 70px;
         }
-        #playerName{
+
+        #playerName {
             height: 25px;
             margin-bottom: 10px;
         }
-        #saveName{
+
+        #saveName {
             height: 25px;
             background: lightgoldenrodyellow;
             border-radius: 5%;
@@ -158,6 +160,7 @@
             width: 80%;
             text-align: center;
         }
+
         #topRecords>div {
             margin-bottom: 15px;
         }
@@ -213,6 +216,30 @@
         .close-btn:hover .line {
             background-color: #ff1a1a;
         }
+
+        #controls {
+           /* display: none;*/
+            position: absolute;
+            bottom: 0;
+            right: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.horizontal-controls {
+    display: flex;
+    justify-content: space-between;
+    width: 100px; /* Ширина между кнопками влево и вправо */
+}
+
+button {
+    /* Размер кнопок */
+    font-size: 20px; /* Размер текста на кнопках */
+}
+
+
+
     </style>
 </head>
 
@@ -255,9 +282,19 @@
             <p id="finalScore"></p>
             <button id="restartButton">Начать заново</button>
         </div>
+        <div id="controls">
+            <button id="up">&uarr;</button>
+            <div class="horizontal-controls">
+                <button id="left">&larr;</button>
+                <button id="right">&rarr;</button>
+            </div>
+            <button id="down">&darr;</button>
+        </div>
+        
+        
 
     </div>
-   <script src="../Project/js/ajax.js"></script>
+    <!--<script src="../Project/js/ajax.js"></script>-->
     <script src="../Project/js/test5.js"></script>
 
 </body>

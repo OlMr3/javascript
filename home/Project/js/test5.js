@@ -68,6 +68,30 @@ class Game {
                     break;
             }
         });
+        this.controls = document.getElementById('controls');
+
+this.controls.addEventListener('click', (event) => {
+    const target = event.target;
+
+    switch (target.id) {
+        case 'up':
+            this.snake.setDirection(0, -1);
+            this.turnSound.play();
+            break;
+        case 'down':
+            this.snake.setDirection(0, 1);
+            this.turnSound.play();
+            break;
+        case 'left':
+            this.snake.setDirection(-1, 0);
+            this.turnSound.play();
+            break;
+        case 'right':
+            this.snake.setDirection(1, 0);
+            this.turnSound.play();
+            break;
+    }
+});
         this.resize();
     }
     /* updateDimensions() {
