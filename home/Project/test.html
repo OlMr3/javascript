@@ -4,96 +4,262 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Advent+Pro:ital,wght@0,100..900;1,100..900&family=Caveat:wght@400..700&family=Great+Vibes&family=Lobster&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Sofia+Sans+Condensed:ital,wght@0,1..1000;1,1..1000&display=swap"
+        rel="stylesheet">
     <title>Змейка</title>
     <style>
+        * {
+            box-sizing: border-box;
+        }
+
         body {
             display: flex;
-            align-items: center;
+            align-items: flex-start;
             justify-content: center;
             height: 100vh;
             margin: 0;
             background-color: #f0f0f0;
+            font-family: "Sofia Sans Condensed", sans-serif;
+        }
+
+        #playerInput {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: absolute;
+            top: 30%;
+            z-index: 1;
+            background: darkseagreen;
+            padding: 70px;
+        }
+        #playerName{
+            height: 25px;
+            margin-bottom: 10px;
+        }
+        #saveName{
+            height: 25px;
+            background: lightgoldenrodyellow;
+            border-radius: 5%;
         }
 
         #container {
+            margin-top: 10px;
             position: relative;
             width: 80vw;
             height: 80vh;
+            display: flex;
+            flex-direction: column;
+            visibility: hidden;
+        }
+
+        #board {
+            display: flex;
+            justify-content: space-around;
         }
 
         canvas {
             position: absolute;
             top: 40px;
             left: 0;
-            width: 100%;
-            height: 100%;
+            /* width: 100%;
+            height: 100%;*/
             border: 1px solid #000;
         }
-        #score {
-                position: absolute;
-                top: 10px;
-                left: 10px;
-                font-size: 20px;
-                color: #333;
-            }
-    
-            #lives {
-                position: absolute;
-                top: 10px;
-                right: 10px;
-                font-size: 20px;
-                color: #333;
-            }
-    
-            #gameOver {
-                position: absolute;
-                top: 50%;
-                left: 50%;
-                transform: translate(-50%, -50%);
-                background-color: rgba(0, 0, 0, 0.7);
-                color: white;
-                padding: 20px;
-                border-radius: 5px;
-                text-align: center;
-                display: none; /* Скрываем изначально */
-            }
-    
-            #gameOver button {
-                background-color: #4CAF50;
-                color: white;
-                padding: 10px 20px;
-                border: none;
-                border-radius: 5px;
-                cursor: pointer;
-                font-size: 16px;
-            }
-    
-            #startButton {
-                background-color: #007bff;
-                color: white;
-                padding: 15px 30px;
-                font-size: 20px;
-                border: none;
-                border-radius: 5px;
-                cursor: pointer;
-                margin-bottom: 20px;
-            }
 
+        #score {
+            /*position: absolute;
+                top: 10px;
+                left: 10px;*/
+            font-family: "Sofia Sans Condensed", sans-serif;
+            font-size: 20px;
+            color: #333;
+        }
+
+        #lives {
+            /* position: absolute;
+                top: 10px;
+                right: 10px;*/
+            font-family: "Sofia Sans Condensed", sans-serif;
+            font-size: 20px;
+            color: #333;
+        }
+
+        #gameOver {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 20px;
+            border-radius: 5px;
+            font-family: "Sofia Sans Condensed", sans-serif;
+            text-align: center;
+            display: none;
+            /* Скрываем изначально */
+        }
+
+        #gameOver button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            font-family: "Sofia Sans Condensed", sans-serif;
+            margin-left: 10px;
+        }
+
+        #startButton,
+        #gameRules,
+        #records {
+            background-color: #5fad8e;
+            color: white;
+            padding: 5px 5px;
+            font-family: "Sofia Sans Condensed", sans-serif;
+            font-size: 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            /* margin-bottom: 20px;*/
+        }
+
+        /*добавлено ниже*/
+        #rules,
+        #recordsContainer {
+            position: absolute;
+            /* Позволяет элементу выезжать из-за границ */
+            top: -100px;
+            /* Начальная позиция выше экрана */
+            left: 50%;
+            z-index: 1;
+            /* Центрируем по горизонтали */
+            transform: translateX(-50%) translateZ(0);
+            /* Центрируем по горизонтали и активируем GPU */
+            transition: top 0.5s ease, opacity 0.5s ease;
+            /* Плавный переход для свойств top и opacity */
+            background-color: white;
+            /* Цвет фона для видимости */
+            border: 1px solid #ccc;
+            /* Граница для видимости */
+            padding: 20px;
+            /* Отступы внутри div */
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            /* Тень для эффекта */
+            opacity: 0;
+            /* Начальная непрозрачность */
+            visibility: hidden;
+            /* Скрываем элемент по умолчанию */
+            font-size: 20px;
+            width: 80%;
+            text-align: center;
+        }
+        #topRecords>div {
+            margin-bottom: 15px;
+        }
+
+        #rulesContent {
+            font-family: "Sofia Sans Condensed", sans-serif;
+        }
+
+        #rules.visible,
+        #recordsContainer.visible {
+            top: 40px;
+            /* Конечная позиция (можно настроить) */
+            opacity: 1;
+            /* Конечная непрозрачность */
+            visibility: visible;
+            /* Делаем элемент видимым */
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            /* Перемещаем крестик в правый верхний угол */
+            cursor: pointer;
+            width: 30px;
+            /* Ширина кнопки */
+            height: 30px;
+            /* Высота кнопки */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .line {
+            position: absolute;
+            width: 100%;
+            height: 4px;
+            /* Толщина линии */
+            background-color: #080808;
+            /* Цвет линии */
+        }
+
+        .line:first-child {
+            transform: rotate(45deg);
+            /* Первая линия под углом 45 градусов */
+        }
+
+        .line:last-child {
+            transform: rotate(-45deg);
+            /* Вторая линия под углом -45 градусов */
+        }
+
+        .close-btn:hover .line {
+            background-color: #ff1a1a;
+        }
     </style>
 </head>
 
 <body>
-    <button id="startButton">Начать игру</button>
+    <div id="playerInput">
+        <input type="text" id="playerName" placeholder="Введите ваше имя" minlength="5" required>
+        <button id="saveName">Запомнить меня</button>
+    </div>
+
     <div id="container">
+        <div id="board">
+            <div id="curName"></div>
+            <button id="startButton">Начать игру</button>
+            <button id="gameRules">Правила игры</button>
+            <!--добавлено ниже-->
+            <div id="rules" class="hidden">
+                <p id="rulesContent"></p>
+                <span class="close-btn"> <!-- Крестик для закрытия -->
+                    <div class="line"></div> <!-- Первая линия -->
+                    <div class="line"></div> <!-- Вторая линия -->
+                </span>
+
+            </div>
+            <!--добавлено выше-->
+            <button id="records">Рекорды</button>
+            <div id="recordsContainer" class="hidden">
+                <h2>Лучшие 10 рекордов</h2>
+                <div id="topRecords"></div>
+                <span class="close-btn"> <!-- Крестик для закрытия -->
+                    <div class="line"></div> <!-- Первая линия -->
+                    <div class="line"></div> <!-- Вторая линия -->
+                </span>
+            </div>
+            <div id="score">Счет: 0</div>
+            <div id="lives">Жизни: 3</div>
+        </div>
         <canvas id="gameCanvas"></canvas>
-        <div id="score">Счет: 0</div>
-        <div id="lives">Жизни: 3</div>
         <div id="gameOver">
             <h2>Игра окончена!</h2>
             <p id="finalScore"></p>
             <button id="restartButton">Начать заново</button>
         </div>
+
     </div>
-    <script src="../Project/js/test4.js"></script>
+   <script src="../Project/js/ajax.js"></script>
+    <script src="../Project/js/test5.js"></script>
+
 </body>
+
 </html>
