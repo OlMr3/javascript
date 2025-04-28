@@ -5,8 +5,8 @@ class Game {
         this.ctx = this.canvas.getContext('2d');
         this.cellSize = 25;
         /* this.updateDimensions();*/
-        this.width = Math.floor(window.innerWidth * 0.8 / this.cellSize) * this.cellSize;  // 80% ширины окна
-        this.height = Math.floor(window.innerHeight * 0.8 / this.cellSize) * this.cellSize; // 80% высоты окна
+        this.width = Math.floor(window.innerWidth * 0.7 / this.cellSize) * this.cellSize;  // 80% ширины окна
+        this.height = Math.floor(window.innerHeight * 0.7 / this.cellSize) * this.cellSize; // 80% высоты окна
         this.canvas.width = this.width;
         this.canvas.height = this.height;
         this.cols = Math.floor(this.width / this.cellSize);
@@ -133,26 +133,25 @@ this.controls.addEventListener('touchstart', (event) => {
 
         const oldWidth = this.width;
         const oldHeight = this.height;
-        if (window.innerWidth <= 650){
+        if (window.innerWidth <= 700){
             this.cellSize = 15;
         } else {
             this.cellSize = 25;
         }
-        this.width = Math.min(Math.floor(window.innerWidth * 0.8 / this.cellSize) * this.cellSize, maxWidth);
-        this.height = Math.min(Math.floor(window.innerHeight * 0.8 / this.cellSize) * this.cellSize, maxHeight);
+        this.width = Math.min(Math.floor(window.innerWidth * 0.7 / this.cellSize) * this.cellSize, maxWidth);
+        this.height = Math.min(Math.floor(window.innerHeight * 0.7 / this.cellSize) * this.cellSize, maxHeight);
        /* this.width = Math.floor(window.innerWidth * 0.8 / this.cellSize) * this.cellSize;
         this.height = Math.floor(window.innerHeight * 0.8 / this.cellSize) * this.cellSize;*/
-        if (window.innerWidth <= 650){
-            this.width = 400;
+        if (window.innerWidth <= 700){
+            this.width = 390;
             this.height = 300;
         }
-    
-        
-
         this.canvas.width = this.width;
         this.canvas.height = this.height;
         this.snake.size = this.cellSize;
-        this.food.size = this.cellSize; // Обновляем размер змейки
+        this.food.size = this.cellSize; 
+        this.bomb.size = this.cellSize;
+        this.heart.size = this.cellSize;// Обновляем размер змейки
         /*  this.food.size = this.cellSize; // Обновляем размер еды
           if (this.bomb) {
               this.bomb.size = this.cellSize; // Обновляем размер бомбы
@@ -426,8 +425,8 @@ class Food {
         const cols = Math.floor(this.game.width / this.size);
         const rows = Math.floor(this.game.height / this.size);
         this.position = {
-            x: (Math.floor(Math.random() * cols) * this.size),
-            y: (Math.floor(Math.random() * rows) * this.size),
+            x: (Math.floor(Math.random() * cols/2) * this.size),
+            y: (Math.floor(Math.random() * rows/2) * this.size),
         };
         /*console.log(`Food position: x=${this.position.x}, y=${this.position.y}`);*/
     }
