@@ -133,7 +133,7 @@ this.controls.addEventListener('touchstart', (event) => {
 
         const oldWidth = this.width;
         const oldHeight = this.height;
-        if (window.innerWidth <= 700){
+        if (window.innerWidth <= 900){
             this.cellSize = 15;
         } else {
             this.cellSize = 25;
@@ -142,10 +142,12 @@ this.controls.addEventListener('touchstart', (event) => {
         this.height = Math.min(Math.floor(window.innerHeight * 0.7 / this.cellSize) * this.cellSize, maxHeight);
        /* this.width = Math.floor(window.innerWidth * 0.8 / this.cellSize) * this.cellSize;
         this.height = Math.floor(window.innerHeight * 0.8 / this.cellSize) * this.cellSize;*/
-        if (window.innerWidth <= 700){
+        if (window.innerWidth <= 900){
             this.width = 390;
             this.height = 300;
-        }
+        } 
+
+        
         this.canvas.width = this.width;
         this.canvas.height = this.height;
         this.snake.size = this.cellSize;
