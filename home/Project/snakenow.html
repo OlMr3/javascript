@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Змейка</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+        canvas {
+            border: 1px solid black;
+            background-color: #f0f0f0;
+        }
+        #gameOver {
+            display: none;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div id="score-lives">
+        <span id="score">Счет: 0</span>
+        <span id="lives">Жизни: 3</span>
+    </div>
+    <button id="startButton">Старт</button>
+    <canvas id="gameCanvas"></canvas>
+    <div id="gameOver">
+        <h2>Игра окончена!</h2>
+        <h3 id="finalScore-"></h3>
+        <button id="restartButton">Начать заново</button>
+    </div>
+
+    <script src="../Project/js/snakenow.js">
+        
+    </script>
+</body>
+</html>
+

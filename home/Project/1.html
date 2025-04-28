@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Advent+Pro:ital,wght@0,100..900;1,100..900&family=Caveat:wght@400..700&family=Great+Vibes&family=Lobster&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Sofia+Sans+Condensed:ital,wght@0,1..1000;1,1..1000&display=swap"
+        rel="stylesheet">
+    <title>Document</title>
+    <style>
+        body, button {
+            font-family: "Sofia Sans Condensed", sans-serif;
+        }
+        #rules {
+            position: absolute;
+            /* Позволяет элементу выезжать из-за границ */
+            top: -100px;
+            /* Начальная позиция выше экрана */
+            left: 50%;
+            /* Центрируем по горизонтали */
+            transform: translateX(-50%) translateZ(0);
+            /* Центрируем по горизонтали и активируем GPU */
+            transition: top 0.5s ease, opacity 0.5s ease;
+            /* Плавный переход для свойств top и opacity */
+            background-color: white;
+            /* Цвет фона для видимости */
+            border: 1px solid #ccc;
+            /* Граница для видимости */
+            padding: 20px;
+            /* Отступы внутри div */
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            /* Тень для эффекта */
+            opacity: 0;
+            /* Начальная непрозрачность */
+            visibility: hidden;
+            /* Скрываем элемент по умолчанию */
+        }
+
+        #rules.visible {
+            top: 20px;
+            /* Конечная позиция (можно настроить) */
+            opacity: 1;
+            /* Конечная непрозрачность */
+            visibility: visible;
+            /* Делаем элемент видимым */
+        }
+        .close-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px; /* Перемещаем крестик в правый верхний угол */
+            cursor: pointer;
+            width: 30px; /* Ширина кнопки */
+            height: 30px; /* Высота кнопки */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .line {
+            position: absolute;
+            width: 100%;
+            height: 4px; /* Толщина линии */
+            background-color: #080808; /* Цвет линии */
+        }
+
+        .line:first-child {
+            transform: rotate(45deg); /* Первая линия под углом 45 градусов */
+        }
+
+        .line:last-child {
+            transform: rotate(-45deg); /* Вторая линия под углом -45 градусов */
+        }
+
+        .close-btn:hover .line {
+            background-color: #ff1a1a;}
+    </style>
+</head>
+
+<body>
+    <button id="gameRules">Правила игры</button>
+    <div id="rules" class="hidden">
+        <span class="close-btn"> <!-- Крестик для закрытия -->
+            <div class="line"></div> <!-- Первая линия -->
+            <div class="line"></div> <!-- Вторая линия -->
+        </span>
+        <p id="rulesContent"></p>
+    </div>
+  <!---<button id="gameRules">Правила игры</button>
+    <div id="rules" class="hidden"></div>--> 
+    <script src="../Project/js/ajax.js"></script>
+</body>
+
+</html>

@@ -31,7 +31,7 @@ class Game {
                 console.log('Имя игрока:', this.playerName);
                 document.getElementById('playerInput').style.display = 'none';
                 document.getElementById('container').style.visibility = 'visible';
-                openFullscreen();
+                this.openFullscreen();
             } else {
                 alert('Введите имя')
             }
