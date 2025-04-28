@@ -144,8 +144,8 @@ this.controls.addEventListener('touchstart', (event) => {
        /* this.width = Math.floor(window.innerWidth * 0.8 / this.cellSize) * this.cellSize;
         this.height = Math.floor(window.innerHeight * 0.8 / this.cellSize) * this.cellSize;*/
         if (window.innerWidth <= 900){
-            this.width = 390;
-            this.height = 300;
+            this.width = 300;
+            this.height = 390;
         } 
 
         
