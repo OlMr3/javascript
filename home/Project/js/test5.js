@@ -31,6 +31,7 @@ class Game {
                 console.log('Имя игрока:', this.playerName);
                 document.getElementById('playerInput').style.display = 'none';
                 document.getElementById('container').style.visibility = 'visible';
+                window.scrollTo(0,0);
               /*  this.openFullscreen();*/
             } else {
                 alert('Введите имя')
@@ -427,7 +428,7 @@ class Food {
         this.image = new Image();
         this.image.src = 'images/apple.svg'
         this.image.onload = () => {
-            this.spawn();
+           /* this.spawn();*/
             this.draw();
         }
         /* loadImage('images/apple.svg').then(img => {
