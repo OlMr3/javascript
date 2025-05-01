@@ -5,8 +5,8 @@ class Game {
         this.ctx = this.canvas.getContext('2d');
         this.cellSize = 25;
         /* this.updateDimensions();*/
-        this.width = Math.floor(window.innerWidth * 0.7 / this.cellSize) * this.cellSize;  // 80% ширины окна
-        this.height = Math.floor(window.innerHeight * 0.7 / this.cellSize) * this.cellSize; // 80% высоты окна
+        this.width = Math.floor(window.innerWidth * 0.7 / this.cellSize) * this.cellSize;  // 70% ширины окна
+        this.height = Math.floor(window.innerHeight * 0.7 / this.cellSize) * this.cellSize; // 70% высоты окна
         this.canvas.width = this.width;
         this.canvas.height = this.height;
         this.cols = Math.floor(this.width / this.cellSize);
@@ -317,7 +317,7 @@ this.controls.addEventListener('touchstart', (event) => {
 
         for (let x = 0; x < this.width; x += this.cellSize) {
             for (let y = 0; y < this.height; y += this.cellSize) {
-                ctx.fillStyle = (x / this.cellSize + y / this.cellSize) % 2 === 0 ? 'rgba(180, 220, 180, 0.86)' : 'rgba(212, 240, 212, 0.968)'; // Цвета клеток
+                ctx.fillStyle = (x / this.cellSize + y / this.cellSize) % 2 === 0 ? 'rgb(140, 213, 140)' : 'rgb(177, 242, 177)'; // Цвета клеток
                 ctx.fillRect(x, y, this.cellSize, this.cellSize);
             }
         }
@@ -438,15 +438,44 @@ class Food {
          });*/
 
     }
-    spawn() {
+   /* spawn() {
         const cols = Math.floor(this.game.width / this.size);
         const rows = Math.floor(this.game.height / this.size);
         this.position = {
             x: (Math.floor(Math.random() * cols/2) * this.size),
             y: (Math.floor(Math.random() * rows/2) * this.size),
         };
-        /*console.log(`Food position: x=${this.position.x}, y=${this.position.y}`);*/
-    }
+    }*/
+
+        spawn() {
+            const cols = Math.floor(this.game.width / this.size);
+            const rows = Math.floor(this.game.height / this.size);
+            let position;
+        
+            do {
+                position = {
+                    x: (Math.floor(Math.random() * cols) * this.size),
+                    y: (Math.floor(Math.random() * rows) * this.size),
+                };
+            } while (this.isOccupied(position));
+        
+            this.position = position;
+        }
+        
+        isOccupied(position) {
+            // Проверяем, занята ли позиция телом змейки
+            for (let segment of this.game.snake.body) {
+                if (segment.x === position.x && segment.y === position.y) {
+                    return true; // Позиция занята
+                }
+            }
+            return false; // Позиция свободна
+        }
+        
+
+
+
+
     isEaten(snakeHead) {
 
        /* const scaledSize = this.size * this.scale;

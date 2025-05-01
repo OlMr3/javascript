@@ -20,7 +20,8 @@
             justify-content: center;
             height: 100vh;
             margin: 0;
-            background-color: #f0f0f0;
+           /* background-color: #f0f0f0;*/
+           background: url('../Project/images/grass2.png');
             font-family: "Sofia Sans Condensed", sans-serif;
            overflow: hidden;
         }
@@ -77,7 +78,12 @@
             border: none;
             border-radius: 5px;
             cursor: pointer;
-            margin-bottom: 20px;}
+            margin-bottom: 20px;
+            transition: transform 0.2s ease;
+        }
+        #board>button:hover{
+            transform: scale(1.1);
+        }
         #scoreAndLives {
             display: flex;
             flex-direction: column;
@@ -85,8 +91,10 @@
         #scoreAndLives>div {
             font-family: "Sofia Sans Condensed", sans-serif;
             font-size: 20px;
-            color: #333;
+            color: white;
+            background: #5fad8e;
             margin-bottom: 20px;
+            text-align: center;
         }
         canvas {
            /* position: absolute;
@@ -144,14 +152,14 @@
             /* Позволяет элементу выезжать из-за границ */
             top: -100px;
             /* Начальная позиция выше экрана */
-            left: 50%;
+            left: 55%;
             z-index: 1;
             /* Центрируем по горизонтали */
             transform: translateX(-50%) translateZ(0);
             /* Центрируем по горизонтали и активируем GPU */
             transition: top 0.5s ease, opacity 0.5s ease;
             /* Плавный переход для свойств top и opacity */
-            background-color: white;
+           /* background-color: white;*/
             /* Цвет фона для видимости */
             border: 1px solid #ccc;
             /* Граница для видимости */
@@ -166,6 +174,8 @@
             font-size: 20px;
             width: 80%;
             text-align: center;
+            background: #5fad8e;
+            color: white;
         }
 
         #topRecords>div {
@@ -180,7 +190,7 @@
         #recordsContainer.visible {
             top: 40px;
             /* Конечная позиция (можно настроить) */
-            opacity: 1;
+            opacity: 0.9;
             /* Конечная непрозрачность */
             visibility: visible;
             /* Делаем элемент видимым */
@@ -244,7 +254,7 @@
 
 #controls button {
     /* Размер кнопок */
-    font-size: 25px; /* Размер текста на кнопках */
+    font-size: 30px; /* Размер текста на кнопках */
     background-color: #5fad8e;
             color: white;
 }
@@ -277,6 +287,10 @@
             margin-right: 20px;
           
         }
+        #rules,
+        #recordsContainer{
+            left: 50%;
+        }
         #controls{
             display: flex;
     flex-direction: column;
@@ -307,7 +321,10 @@
             font-size: 16px;
             margin-right: 10px;
         }
-
+        #rules,
+        #recordsContainer{
+            font-size: 16px;
+        }
     }
 
     @media (max-width: 650px){
@@ -317,6 +334,10 @@
         }
         #scoreAndLives>div {
             font-size: 12px;
+        }
+        #rules,
+        #recordsContainer{
+            font-size: 14px;
         }
         #gameOver{
            /* top: 50%;
@@ -401,7 +422,7 @@
         
 
     </div>
-    <!--<script src="../Project/js/ajax.js"></script>-->
+    <script src="../Project/js/ajax.js"></script>
     <script src="../Project/js/test5.js"></script>
 
 </body>

@@ -9,14 +9,14 @@ const showRecordsButton = document.getElementById('records');
 const recordsDiv = document.getElementById('recordsContainer');
 // Пример использования
 
-saveNameButton.addEventListener('click', () => {
+/*saveNameButton.addEventListener('click', () => {
     const playerName = playerNameInput.value.trim();
     if (playerName) {
         savePlayerName(playerName);
     } else {
         alert('Введите имя игрока.');
     }
-});
+});*/
 const recordName = 'MRYAZEVA_TESTS_RECORDSOF'; // Имя для хранения рекордо
 
 
