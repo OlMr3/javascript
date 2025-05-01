@@ -147,8 +147,6 @@ this.controls.addEventListener('touchstart', (event) => {
             this.width = 315;
             this.height = 390;
         } 
-
-        
         this.canvas.width = this.width;
         this.canvas.height = this.height;
         this.snake.size = this.cellSize;
@@ -215,11 +213,13 @@ this.controls.addEventListener('touchstart', (event) => {
         this.score = 0;
         this.lives = 3;
         this.snake.reset();
+        this.lastMoveTime = performance.now();
         const gameLoop = (timestamp) => {
             if (this.lives > 0) {
                 if (timestamp - this.lastMoveTime > this.gameSpeed) {
                     this.update();
-                    this.lastMoveTime += this.gameSpeed;
+                    /*this.lastMoveTime += this.gameSpeed;*/
+                    this.lastMoveTime = timestamp;
                 }
                 this.draw();
                 requestAnimationFrame(gameLoop);
