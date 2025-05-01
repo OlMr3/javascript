@@ -290,6 +290,9 @@ this.controls.addEventListener('touchstart', (event) => {
                 this.updateScoreAndLives();
                 /* document.getElementById('lives').innerText = `Жизни: ${this.lives}`;*/
                 this.deadSound.play();
+                if (navigator.vibrate){
+                    navigator.vibrate(200);
+                }
                 if (this.lives > 0) {
                     // Перезапуск змейки без потери счета
                     this.snake.reset();
