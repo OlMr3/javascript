@@ -246,8 +246,8 @@
     flex-direction: column;
     align-items: center;*/
 }
-#up {margin-bottom: 10px;}
-#down {margin-top: 10px;}
+/*#up {margin-bottom: 10px;}
+#down {margin-top: 10px;}*/
 .horizontal-controls {
     display: flex;
     justify-content: space-between;
@@ -255,10 +255,14 @@
 }
 
 #controls button {
+    
     /* Размер кнопок */
     font-size: 30px; /* Размер текста на кнопках */
     background-color: #5fad8e;
             color: white;
+            margin: 0 5px;
+            width: 80px;
+            text-align: center;
 }
 
     @media (max-width: 1050px){
@@ -278,9 +282,7 @@
             justify-content: space-between;
         }
         #board>button{margin-right: 20px;}
-       /* #gameCanvas {
-            left: 80px;
-        }*/
+      
         #scoreAndLives{
             flex-direction: row;
             justify-content: space-between;
@@ -298,7 +300,9 @@
     flex-direction: column;
     align-items: center;
     margin-top: 20px;
+    
         }
+       
         #gameOver{
            /* top: 50%;
             left: 55%;
