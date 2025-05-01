@@ -226,10 +226,10 @@
 
         #controls {
           display: none;
-            position: absolute;
+           /* position: absolute;
             bottom: 0;
             right: 0;
-            z-index: 2;
+            z-index: 2;*/
    /* display: flex;
     flex-direction: column;
     align-items: center;*/
@@ -246,7 +246,7 @@ button {
     font-size: 20px; /* Размер текста на кнопках */
 }
 
-    @media (max-width: 900px){
+    @media (max-width: 1050px){
        /* body {
             justify-content: flex-start;
         }*/
@@ -273,6 +273,12 @@ button {
         #scoreAndLives>div{
             margin-right: 20px;
           
+        }
+        #controls{
+            display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20px;
         }
     }
     @media (max-width: 750px){
