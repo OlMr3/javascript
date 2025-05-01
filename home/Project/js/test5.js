@@ -31,7 +31,7 @@ class Game {
                 console.log('Имя игрока:', this.playerName);
                 document.getElementById('playerInput').style.display = 'none';
                 document.getElementById('container').style.visibility = 'visible';
-                this.openFullscreen();
+              /*  this.openFullscreen();*/
             } else {
                 alert('Введите имя')
             }
@@ -190,7 +190,7 @@ this.controls.addEventListener('touchstart', (event) => {
     isInBounds(position) {
         return position.x >= 0 && position.x < this.width && position.y >= 0 && position.y < this.height;
     }
-    openFullscreen() {
+   /* openFullscreen() {
         const elem = document.getElementById("Container");
         if (elem.requestFullscreen) {
             elem.requestFullscreen();
@@ -201,7 +201,7 @@ this.controls.addEventListener('touchstart', (event) => {
         } else if (elem.msRequestFullscreen) { // IE/Edge
             elem.msRequestFullscreen();
         }
-    }
+    }*/
     
     updateScoreAndLives() {
         document.getElementById('score').innerText = `Счет: ${this.score}`;
