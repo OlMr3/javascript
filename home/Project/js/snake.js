@@ -363,8 +363,6 @@ class Food {
         this.game = game;
         this.position = {};
         this.size = this.game.cellSize;
-        this.scale = 1;
-        this.growing = true;
         this.image = new Image();
         this.image.src = 'images/apple.svg'
         this.image.onload = () => {
