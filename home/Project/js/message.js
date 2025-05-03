@@ -1,29 +1,30 @@
-// Получаем элемент для отображения сообщения
-const messageElement = document.createElement('div');
-messageElement.style.position = 'fixed';
-messageElement.style.top = '10px';
-messageElement.style.left = '50%';
-messageElement.style.transform = 'translateX(-50%)';
-messageElement.style.backgroundColor = 'red';
-messageElement.style.color = 'white';
-messageElement.style.padding = '10px';
-messageElement.style.display = 'none'; // Скрываем сообщение по умолчанию
-document.body.appendChild(messageElement);
-
-// Функция для обработки изменения ориентации
-function handleOrientationChange() {
-    if (window.innerHeight < window.innerWidth) {
-        // Если экран в горизонтальной ориентации
-        messageElement.textContent = 'Пожалуйста, используйте вертикальную ориентацию!';
-        messageElement.style.display = 'block'; // Показываем сообщение
-    } else {
-        // Если экран в вертикальной ориентации
-        messageElement.style.display = 'none'; // Скрываем сообщение
+function lockOrientation() {
+    if (screen.orientation && screen.orientation.lock) {
+        screen.orientation.lock('portrait').catch(function(error) {
+            console.error('Не удалось заблокировать ориентацию:', error);
+        });
     }
 }
 
-// Добавляем обработчик события изменения размера окна
-window.addEventListener('resize', handleOrientationChange);
+// Функция для обработки изменения ориентации
+function handleOrientationChange() {
+    const message = document.getElementById('message');
+    if (window.matchMedia("(orientation: landscape)").matches) {
+        // Если устройство в горизонтальном положении, показываем сообщение и скрываем все остальное
+        document.body.style.opacity = '0';
+        message.style.display = 'block';
+    } else {
+        // Если устройство в вертикальном положении, скрываем сообщение и показываем все
+        document.body.style.opacity = '1';
+        message.style.display = 'none';
+    }
+}
 
-// Вызываем функцию сразу, чтобы проверить начальную ориентацию
-handleOrientationChange();
+// Блокируем ориентацию при загрузке страницы
+window.addEventListener('load', () => {
+    lockOrientation();
+    handleOrientationChange(); // Проверяем начальную ориентацию
+});
+
+// Добавляем обработчик события изменения ориентации
+window.addEventListener('orientationchange', handleOrientationChange);

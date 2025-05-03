@@ -25,6 +25,12 @@
             font-family: "Sofia Sans Condensed", sans-serif;
            overflow: hidden;
         }
+        #message {
+            display: none;
+            font-size: 24px;
+            color: red;
+            position: absolute;
+        }
 
         #playerInput {
             display: flex;
@@ -376,6 +382,7 @@
 </head>
 
 <body>
+    <div id="message">Пожалуйста, поверните устройство в вертикальное положение.</div>
     <div id="playerInput">
         <input type="text" inputmode="text" id="playerName" placeholder="Введите ваше имя" minlength="5" required>
         <button id="saveName">Запомнить меня</button>
@@ -434,7 +441,7 @@
     </div>
     <script src="../Project/js/ajax.js"></script>
     <script src="../Project/js/test5.js"></script>
-    <script src="../Project/js/message.js"></script>
+   <script src="../Project/js/message.js"></script>
 
 </body>
 
