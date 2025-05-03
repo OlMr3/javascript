@@ -25,8 +25,8 @@
             font-family: "Sofia Sans Condensed", sans-serif;
            overflow: hidden;
         }
-        .landscape-warning {
-            display: none; /* Скрываем предупреждение по умолчанию */
+        /*.landscape-warning {
+            display: none; 
             position: fixed;
             top: 50%;
             left: 50%;
@@ -35,8 +35,8 @@
             color: white;
             padding: 20px;
             border-radius: 5px;
-            z-index: 9999; /* Обеспечиваем, чтобы сообщение было поверх всего */
-        }
+            z-index: 9999; 
+        }*/
 
         #playerInput {
             display: flex;
@@ -378,10 +378,8 @@
             display: none;*/
         }
         #gameOver button {
-           
             padding: 5px 5px;
             font-size: 14px;
-           
             margin-left: 20px;
         }
     }
@@ -393,7 +391,7 @@
 </head>
 
 <body>
-    <div class="landscape-warning">Пожалуйста, поверните устройство в вертикальное положение.</div>
+    <!--<div class="landscape-warning">Пожалуйста, поверните устройство в вертикальное положение.</div>-->
     <div id="playerInput">
         <input type="text" inputmode="text" id="playerName" placeholder="Введите ваше имя" minlength="5" required>
         <button id="saveName">Запомнить меня</button>
@@ -452,7 +450,7 @@
     </div>
     <script src="../Project/js/ajax.js"></script>
     <script src="../Project/js/test5.js"></script>
-   <script src="../Project/js/message.js"></script>
+   <!--<script src="../Project/js/message.js"></script>-->
 
 </body>
 
