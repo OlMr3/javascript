@@ -158,16 +158,9 @@ this.controls.addEventListener('touchstart', (event) => {
         this.snake.size = this.cellSize;
         this.food.size = this.cellSize; 
         this.bomb.size = this.cellSize;
-        this.heart.size = this.cellSize;// Обновляем размер змейки
-        /*  this.food.size = this.cellSize; // Обновляем размер еды
-          if (this.bomb) {
-              this.bomb.size = this.cellSize; // Обновляем размер бомбы
-          }
-          if (this.heart) {
-              this.heart.size = this.cellSize; // Обновляем размер сердца
-          }*/
-        const oldCols = Math.floor(oldWidth / this.cellSize);
-        const oldRows = Math.floor(oldHeight / this.cellSize);
+        this.heart.size = this.cellSize;
+        /*const oldCols = Math.floor(oldWidth / this.cellSize);
+        const oldRows = Math.floor(oldHeight / this.cellSize);*/
         this.cols = Math.floor(this.width / this.cellSize);
         this.rows = Math.floor(this.height / this.cellSize);
         this.snake.reset();
@@ -194,19 +187,6 @@ this.controls.addEventListener('touchstart', (event) => {
     isInBounds(position) {
         return position.x >= 0 && position.x < this.width && position.y >= 0 && position.y < this.height;
     }
-   /* openFullscreen() {
-        const elem = document.getElementById("Container");
-        if (elem.requestFullscreen) {
-            elem.requestFullscreen();
-        } else if (elem.mozRequestFullScreen) { // Firefox
-            elem.mozRequestFullScreen();
-        } else if (elem.webkitRequestFullscreen) { // Chrome, Safari и Opera
-            elem.webkitRequestFullscreen();
-        } else if (elem.msRequestFullscreen) { // IE/Edge
-            elem.msRequestFullscreen();
-        }
-    }*/
-    
     updateScoreAndLives() {
         document.getElementById('score').innerText = `Счет: ${this.score}`;
         document.getElementById('lives').innerText = `Жизни: ${this.lives}`;
@@ -224,7 +204,6 @@ this.controls.addEventListener('touchstart', (event) => {
             if (this.lives > 0) {
                 if (timestamp - this.lastMoveTime > this.gameSpeed) {
                     this.update();
-                    /*this.lastMoveTime += this.gameSpeed;*/
                     this.lastMoveTime = timestamp;
                 }
                 this.draw();
@@ -237,8 +216,6 @@ this.controls.addEventListener('touchstart', (event) => {
         this.lives = 3;
         this.score = 0;
         this.updateScoreAndLives();
-        /* document.getElementById('score').innerText = `Счет: ${this.score}`;
-         document.getElementById('lives').innerText = `Жизни: ${this.lives}`;*/
         document.getElementById('gameOver').style.display = 'none';
         document.getElementById('restartButton').style.display = 'none';
         this.start();
@@ -247,17 +224,9 @@ this.controls.addEventListener('touchstart', (event) => {
         if (this.lives > 0) {
             // Обновление состояния игры
             this.snake.move();
-           /* this.food.update();
-            if (this.bomb) {
-                this.bomb.update();
-            }
-            if (this.heart) {
-                this.heart.update();
-            }*/
             if (this.snake.eat(this.food)) {
                 this.score++;
                 this.updateScoreAndLives();
-                /* document.getElementById('score').innerText = `Счет: ${this.score}`;*/
                 this.food.spawn();
                 this.bomb.spawn();
                 this.heart.spawn();
@@ -266,7 +235,6 @@ this.controls.addEventListener('touchstart', (event) => {
             if (this.snake.eat(this.bomb)) {
                 this.lives--;
                 this.updateScoreAndLives();
-                /*document.getElementById('lives').innerText = `Жизни: ${this.lives}`;*/
                 this.food.spawn();
                 this.bomb.spawn();
                 this.heart.spawn();
@@ -282,7 +250,6 @@ this.controls.addEventListener('touchstart', (event) => {
             if (this.snake.eat(this.heart)) {
                 this.lives++;
                 this.updateScoreAndLives();
-                /* document.getElementById('lives').innerText = `Жизни: ${this.lives}`;*/
                 this.food.spawn();
                 this.bomb.spawn();
                 this.heart.spawn();
@@ -357,14 +324,6 @@ class Snake {
         this.image.onload = () => {
             this.draw();
         }
-        /*loadImage(headImageSrc).then(img => {
-            this.headImg = img;
-            // Рисуем после загрузки изображения
-            this.draw(); // Вызов метода draw после загрузки изображения
-        }).catch(err => {
-            console.error('Ошибка загрузки изображения головы: ', err)
-        });*/
-
     }
     reset() {
         // Сброс состояния змейки  
@@ -436,25 +395,9 @@ class Food {
         this.image = new Image();
         this.image.src = 'images/apple.svg'
         this.image.onload = () => {
-           /* this.spawn();*/
             this.draw();
         }
-        /* loadImage('images/apple.svg').then(img => {
-             this.image = img;
-             // Спавн еды после загрузки изображения
-             return Promise.resolve().then(() => { return Promise.resolve(this.spawn()); });
-         });*/
-
     }
-   /* spawn() {
-        const cols = Math.floor(this.game.width / this.size);
-        const rows = Math.floor(this.game.height / this.size);
-        this.position = {
-            x: (Math.floor(Math.random() * cols/2) * this.size),
-            y: (Math.floor(Math.random() * rows/2) * this.size),
-        };
-    }*/
-
         spawn() {
             const cols = Math.floor(this.game.width / this.size);
             const rows = Math.floor(this.game.height / this.size);
@@ -479,58 +422,20 @@ class Food {
             }
             return false; // Позиция свободна
         }
-        
-
-
-
-
     isEaten(snakeHead) {
-
-       /* const scaledSize = this.size * this.scale;
-        const scaledX = this.position.x + (this.size - scaledSize); // Центрируем по X
-        const scaledY = this.position.y + (this.size - scaledSize); // Центрируем по Y
-        return Math.floor(snakeHead.x >= scaledX && snakeHead.x <= scaledX + scaledSize) &&
-            Math.floor(snakeHead.y >= scaledY && snakeHead.y <= scaledY + scaledSize);*/
         return Math.floor(snakeHead.x / this.size) === Math.floor(this.position.x / this.size) &&
              Math.floor(snakeHead.y / this.size) === Math.floor(this.position.y / this.size);
     }
     draw() {
         const ctx = this.game.ctx;
-       /* ctx.save();
-        ctx.translate(this.position.x + (this.size - (this.scale * this.scale)),
-            this.position.y + (this.size - (this.scale * this.scale))); // Перемещаем контекст
-        ctx.scale(this.scale, this.scale); // Применяем масштаб
-        ctx.drawImage(this.image, 0, 0, this.size, this.size);
-        ctx.restore();*/
-
          ctx.drawImage(this.image, this.position.x, this.position.y, this.size, this.size);
     }
-    /*update() {
-        // Логика изменения размера
-        if (this.growing) {
-            if (this.scale < 1.2) { // Максимальный размер
-                this.scale += 0.03; // Увеличиваем масштаб
-            } else {
-                this.growing = false; // Меняем направление роста
-            }
-        } else {
-            if (this.scale > 1) { // Минимальный размер
-                this.scale -= 0.03; // Уменьшаем масштаб
-            } else {
-                this.growing = true; // Меняем направление роста
-            }
-        }
-    }*/
 }
 class Bomb extends Food {
     constructor(game) {
         super(game);
         this.image = new Image();
         this.image.src = 'images/bomb.svg'
-        /* loadImage('images/bomb.svg').then(img => {
-             this.image = img;
-             this.spawn();
-         });*/
     }
 }
 class Heart extends Food {
@@ -538,18 +443,6 @@ class Heart extends Food {
         super(game)
         this.image = new Image();
         this.image.src = 'images/heart.svg'
-        /*loadImage('images/heart.svg').then(img => {
-            this.image = img;
-            this.spawn();
-        });*/
     }
 }
 const game = new Game('gameCanvas');
-/*function loadImage(src) {
-    return new Promise((resolve, reject) => {
-        const img = new Image();
-        img.src = src;
-        img.onload = () => resolve(img);
-        img.onerror = (e) => reject(e);
-    });
-}*/

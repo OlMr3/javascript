@@ -1,7 +1,7 @@
 const ajaxHandlerScript = "https://fe.it-academy.by/AjaxStringStorage2.php";
 let updatePassword;
-const stringName = 'MRYAZEVA_TEST_INFO';
-const gameRules = 'По кнопке "Начать игру" запускается игра. Изначально счет: 0. Игроку дается 3 жизни. Управление через кнопки вверх, вниз, влево, вправо. Движение начинается при нажатии на любую из этих кнопок. Змейка перемещается по полю и, если она села еду, счет увеличивается на 1 очко и тело змейки увеличивается, если она съла сердечко, то увеличивается количество жизней на 1, если она съела бомбу или столкнулась со стеной, или столкнулась сама с собой, то количество жизней уменьшается на 1 и игра перезапускается без потери очков и змейка снова размером . Как только количество жизней равно 0, то игра окончена'
+const stringName = 'MRYAZEVA_GAME_RULES';
+const gameRules = 'По кнопке "Старт" запускается игра. Изначально счет: 0. Игроку дается 3 жизни. Игрок управляет змейкой при помощи кнопок направления — вверх, вниз, влево, вправо. Движение начинается при нажатии на любую из этих кнопок. Ползая, змейка должна собирать еду, за которую начисляются очки и тем самым она увеличивается в размере.  Если она съела бомбу или столкнулась со стеной, или столкнулась сама с собой, то количество жизней уменьшается на 1 и игра перезапускается без потери очков и змейка снова изначального размера. Цель игры — набрать как можно больше очков. Игра заканчивается, если количество жизней равно 0.'
 
 const playerNameInput = document.getElementById('playerName');
 const saveNameButton = document.getElementById('saveName');
@@ -17,7 +17,7 @@ const recordsDiv = document.getElementById('recordsContainer');
         alert('Введите имя игрока.');
     }
 });*/
-const recordName = 'MRYAZEVA_TESTS_RECORDSOF'; // Имя для хранения рекордо
+const recordName = 'MRYAZEVA_TABLE_OFRECORDS'; // Имя для хранения рекордо
 
 
 // Функция для AJAX-запросов
@@ -131,7 +131,7 @@ async function fetchTopRecords() {
 }
 async function displayTopRecords() {
     const records = await fetchTopRecords();
-    
+
     // Сортируем записи по убыванию счета
     records.sort((a, b) => b.score - a.score);
 
@@ -169,15 +169,15 @@ function insertGameRules(rules) {
         },
         body: new URLSearchParams(data) // Кодируем данные в формате URL
     })
-    .then(response => response.json())
-    .then(response => {
-        if (response.result === "OK") { // Проверяем результат
-            console.log("Правила успешно сохранены.");
-        } else {
-            console.log("Ошибка при сохранении правил:", response);
-        }
-    })
-    .catch(error => console.error("Ошибка при вставке:", error));
+        .then(response => response.json())
+        .then(response => {
+            if (response.result === "OK") { // Проверяем результат
+                console.log("Правила успешно сохранены.");
+            } else {
+                console.log("Ошибка при сохранении правил:", response);
+            }
+        })
+        .catch(error => console.error("Ошибка при вставке:", error));
 }
 
 // Вызов функции для добавления правил игры
@@ -195,24 +195,24 @@ function getGameRules() {
         },
         body: new URLSearchParams(data)
     })
-    .then(response => response.json())
-    .then(response => {
-        if (response.result) {
-            // Вставляем правила в div
-            document.getElementById('rulesContent').textContent = response.result;
-        } else {
-            document.getElementById('rulesContent').textContent = "Правила не найдены.";
-            console.log("Ошибка при получении правил:", response.error);
-        }
-    })
-    .catch(error => {
-        document.getElementById('rulesContent').textContent = "Ошибка при загрузке правил.";
-        console.error("Ошибка при запросе:", error);
-    });
+        .then(response => response.json())
+        .then(response => {
+            if (response.result) {
+                // Вставляем правила в div
+                document.getElementById('rulesContent').textContent = response.result;
+            } else {
+                document.getElementById('rulesContent').textContent = "Правила не найдены.";
+                console.log("Ошибка при получении правил:", response.error);
+            }
+        })
+        .catch(error => {
+            document.getElementById('rulesContent').textContent = "Ошибка при загрузке правил.";
+            console.error("Ошибка при запросе:", error);
+        });
 }
 
 // Вызовем функцию для загрузки правил при загрузке страницы
-/*getGameRules();*/
+/*getGameRules()*/;
 document.getElementById('gameRules').addEventListener('click', () => showsRulesOrRecords('gameRules'))/*() => {
     const rulesDiv = document.getElementById('rules');
     
@@ -222,7 +222,7 @@ document.getElementById('gameRules').addEventListener('click', () => showsRulesO
         getGameRules();
     } 
 });*/
-function showsRulesOrRecords(type){
+function showsRulesOrRecords(type) {
     const rulesDiv = document.getElementById('rules');
     const recordDiv = document.getElementById('recordsContainer');
     if (type === 'gameRules') {
@@ -231,8 +231,8 @@ function showsRulesOrRecords(type){
         recordDiv.classList.remove('visible');
         recordDiv.classList.add('hidden');
         getGameRules();
-    } 
-    if(type === 'records'){
+    }
+    if (type === 'records') {
         recordDiv.classList.remove('hidden');
         recordDiv.classList.add('visible');
         rulesDiv.classList.remove('visible');
