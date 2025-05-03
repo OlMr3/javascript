@@ -10,7 +10,7 @@ body {
   margin: 0;
   background: url('../images/grass2.png');
   font-family: "Sofia Sans Condensed", sans-serif;
-  overflow: auto;
+  overflow: hidden;
 }
 
 #playerInput {
@@ -202,6 +202,10 @@ canvas {
 
 #controls {
   display: none;
+  margin-top: 20px;
+  flex-direction: column;
+      align-items: center;
+
 }
 
 .horizontal-controls {
@@ -293,13 +297,13 @@ canvas {
       margin-bottom: 5px;
     }
 
-    #controls {
+   /* #controls {
       display: flex;
       flex-direction: column;
       align-items: center;
       margin-top: 20px;
 
-    }
+    }*/
 
     #gameOver {
       left: 50%;
