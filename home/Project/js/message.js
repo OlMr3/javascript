@@ -4,10 +4,10 @@ function isMobile() {
 
 function handleOrientationChange() {
     const warning = document.querySelector('.landscape-warning');
-    if (window.matchMedia("(orientation: portrait)").matches && isMobile()) {
+    if (window.matchMedia("(orientation: landscape)").matches && isMobile()) {
         // Блокируем горизонтальную ориентацию
         if (screen.orientation && screen.orientation.lock) {
-            screen.orientation.lock(' landscape').catch(function(error) {
+            screen.orientation.lock('portrait').catch(function(error) {
                 console.error('Ошибка блокировки ориентации: ', error);
             });
         }
