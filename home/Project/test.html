@@ -25,7 +25,18 @@
             font-family: "Sofia Sans Condensed", sans-serif;
            overflow: hidden;
         }
-      
+        .landscape-warning {
+            display: none; /* Скрываем предупреждение по умолчанию */
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: rgba(255, 0, 0, 0.8);
+            color: white;
+            padding: 20px;
+            border-radius: 5px;
+            z-index: 9999; /* Обеспечиваем, чтобы сообщение было поверх всего */
+        }
 
         #playerInput {
             display: flex;
@@ -269,6 +280,10 @@
 }
 
     @media (max-width: 1050px){
+        
+
+
+
        /* body {
             justify-content: flex-start;
         }*/
@@ -370,23 +385,7 @@
             margin-left: 20px;
         }
     }
-    @media (orientation: landscape) {
-    body {
-        display: none; /* Или любой другой стиль, чтобы скрыть контент */
-    }
-    .landscape-warning {
-        display: block;
-            font-size: 24px;
-            color: red;
-            position: absolute; /* Показываем предупреждение о горизонтальной ориентации */
-    }
-}
-
-@media (orientation: portrait) {
-    .landscape-warning {
-        display: none; /* Скрываем предупреждение в портретной ориентации */
-    }
-}
+    
 
 
 
@@ -453,7 +452,7 @@
     </div>
     <script src="../Project/js/ajax.js"></script>
     <script src="../Project/js/test5.js"></script>
-   <!--<script src="../Project/js/message.js"></script>-->
+   <script src="../Project/js/message.js"></script>
 
 </body>
 

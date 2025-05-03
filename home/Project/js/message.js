@@ -1,30 +1,33 @@
-function lockOrientation() {
-    if (screen.orientation && screen.orientation.lock) {
-        screen.orientation.lock('portrait').catch(function(error) {
-            console.error('Не удалось заблокировать ориентацию:', error);
-        });
-    }
+function isMobile() {
+    return /Mobi|Android/i.test(navigator.userAgent);
 }
 
-// Функция для обработки изменения ориентации
 function handleOrientationChange() {
-    const message = document.getElementById('message');
-    if (window.matchMedia("(orientation: landscape)").matches) {
-        // Если устройство в горизонтальном положении, показываем сообщение и скрываем все остальное
-        document.body.style.opacity = '0';
-        message.style.display = 'block';
+    const warning = document.querySelector('.landscape-warning');
+    if (window.matchMedia("(orientation: landscape)").matches && isMobile()) {
+        // Блокируем горизонтальную ориентацию
+        if (screen.orientation && screen.orientation.lock) {
+            screen.orientation.lock('portrait').catch(function(error) {
+                console.error('Ошибка блокировки ориентации: ', error);
+            });
+        }
+        // Показываем предупреждение
+        warning.style.display = 'block';
+        document.body.style.display = 'none'; // Скрываем контент
     } else {
-        // Если устройство в вертикальном положении, скрываем сообщение и показываем все
-        document.body.style.opacity = '1';
-        message.style.display = 'none';
+        // Скрываем предупреждение
+        warning.style.display = 'none';
+        document.body.style.display = 'block'; // Показываем контент
     }
 }
 
-// Блокируем ориентацию при загрузке страницы
-window.addEventListener('load', () => {
-    lockOrientation();
-    handleOrientationChange(); // Проверяем начальную ориентацию
-});
-
-// Добавляем обработчик события изменения ориентации
-window.addEventListener('orientationchange', handleOrientationChange);
+// Проверяем на мобильное устройство
+if (isMobile()) {
+    // Добавляем обработчик события изменения ориентации
+    window.addEventListener('orientationchange', handleOrientationChange);
+    // Вызываем функцию при загрузке
+    handleOrientationChange();
+} else {
+    // Если не мобильное устройство, показываем контент
+    document.body.style.display = 'block';
+}
