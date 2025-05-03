@@ -1,5 +1,5 @@
 function isMobile() {
-    return /Mobi|Android/i.test(navigator.userAgent);
+    return /Mobi|Android|iPhone|iPad/i.test(navigator.userAgent);
 }
 
 function handleOrientationChange() {
