@@ -7,20 +7,8 @@ const playerNameInput = document.getElementById('playerName');
 const saveNameButton = document.getElementById('saveName');
 const showRecordsButton = document.getElementById('records');
 const recordsDiv = document.getElementById('recordsContainer');
-// Пример использования
+const recordName = 'MRYAZEVA_TABLE_OFRECORDS'; 
 
-/*saveNameButton.addEventListener('click', () => {
-    const playerName = playerNameInput.value.trim();
-    if (playerName) {
-        savePlayerName(playerName);
-    } else {
-        alert('Введите имя игрока.');
-    }
-});*/
-const recordName = 'MRYAZEVA_TABLE_OFRECORDS'; // Имя для хранения рекордо
-
-
-// Функция для AJAX-запросов
 async function ajaxRequest(params) {
     const response = await fetch(ajaxHandlerScript, {
         method: 'POST',
@@ -31,45 +19,6 @@ async function ajaxRequest(params) {
     });
     return response.json();
 }
-
-// Сохранение имени игрока
-/*async function savePlayerName(playerName) {
-    updatePassword = Math.random();
-    const params = {
-        f: 'LOCKGET',
-        n: recordName,
-        p: updatePassword // Убедитесь, что у Вас есть пароль
-    };
-
-    const result = await ajaxRequest(params);
-    if (result.error) {
-        alert(result.error);
-        return;
-    }
-
-    // Получаем текущие данные
-    let currentData = result.result ? JSON.parse(result.result) : [];
-
-    // Добавляем новое имя игрока
-    if (!currentData.includes(playerName)) {
-        currentData.push(playerName);
-    }
-
-    // Обновляем данные на сервере
-    const updateParams = {
-        f: 'UPDATE',
-        n: recordName,
-        p: updatePassword,
-        v: JSON.stringify(currentData)
-    };
-
-    const updateResult = await ajaxRequest(updateParams);
-    if (updateResult.error) {
-        alert(updateResult.error);
-    } else {
-        alert('Имя игрока сохранено!');
-    }
-}*/
 
 // Обновление рекорда
 async function updatePlayerScore(playerName, score) {
@@ -126,7 +75,6 @@ async function fetchTopRecords() {
         return [];
     }
 
-    // Предполагаем, что результат - это массив объектов с именем и счетом
     return JSON.parse(result.result) || [];
 }
 async function displayTopRecords() {
@@ -139,7 +87,7 @@ async function displayTopRecords() {
     const topRecords = records.slice(0, 10);
 
     // Отображаем записи
-    const recordsDiv = document.getElementById('topRecords'); // Убедитесь, что этот элемент существует
+    const recordsDiv = document.getElementById('topRecords'); 
     recordsDiv.innerHTML = ''; // Очищаем предыдущие записи
     topRecords.forEach(record => {
         const recordElement = document.createElement('div');
@@ -149,13 +97,8 @@ async function displayTopRecords() {
 }
 
 document.getElementById('records').addEventListener('click', () =>
-    showsRulesOrRecords('records')); // Предполагаем, что у Вас есть кнопка для показа рекордов
+    showsRulesOrRecords('records')); 
 
-
-
-
-
-//поменять имя строки и обновить правила
 function insertGameRules(rules) {
     const data = {
         f: 'INSERT',
@@ -165,13 +108,13 @@ function insertGameRules(rules) {
     fetch(ajaxHandlerScript, {
         method: 'POST',
         headers: {
-            'Content-Type': 'application/x-www-form-urlencoded' // Используем URL-кодирование
+            'Content-Type': 'application/x-www-form-urlencoded' 
         },
-        body: new URLSearchParams(data) // Кодируем данные в формате URL
+        body: new URLSearchParams(data) 
     })
         .then(response => response.json())
         .then(response => {
-            if (response.result === "OK") { // Проверяем результат
+            if (response.result === "OK") { 
                 console.log("Правила успешно сохранены.");
             } else {
                 console.log("Ошибка при сохранении правил:", response);
@@ -187,7 +130,6 @@ function getGameRules() {
         f: 'READ',
         n: stringName
     };
-
     fetch(ajaxHandlerScript, {
         method: 'POST',
         headers: {
@@ -213,15 +155,8 @@ function getGameRules() {
 
 // Вызовем функцию для загрузки правил при загрузке страницы
 /*getGameRules()*/;
-document.getElementById('gameRules').addEventListener('click', () => showsRulesOrRecords('gameRules'))/*() => {
-    const rulesDiv = document.getElementById('rules');
-    
-    if (rulesDiv.classList.contains('hidden')) {
-        rulesDiv.classList.remove('hidden');
-        rulesDiv.classList.add('visible');
-        getGameRules();
-    } 
-});*/
+document.getElementById('gameRules').addEventListener('click', () => showsRulesOrRecords('gameRules'))
+   
 function showsRulesOrRecords(type) {
     const rulesDiv = document.getElementById('rules');
     const recordDiv = document.getElementById('recordsContainer');
@@ -240,29 +175,7 @@ function showsRulesOrRecords(type) {
         displayTopRecords();
     }
 }
-/*document.querySelector('.close-btn').addEventListener('click', () => {
-    const rulesDiv = document.getElementById('rules');
-    const recordDiv = document.getElementById('recordsContainer');
-    if(rulesDiv.classList.contains('visible')){
-        rulesDiv.classList.remove('visible');
-    }
-
-    if(recordDiv.classList.contains('visible')){
-        recordDiv.classList.remove('visible');
-    }
-    // Удаляем класс 'hidden' после завершения анимации
-    rulesDiv.addEventListener('transitionend', function handler() {
-        rulesDiv.classList.add('hidden');
-        rulesDiv.removeEventListener('transitionend', handler); // Удаляем обработчик после выполнения
-    });
-    recordDiv.addEventListener('transitionend', function handler(){
-        recordDiv.classList.add('hidden');
-        recordDiv.removeEventListener('transitionend', handler);
-    });
-});*/
-// Получаем все элементы с классом 'close-btn'
 const closeButtons = document.querySelectorAll('.close-btn');
-
 // Добавляем обработчик событий для каждого элемента
 closeButtons.forEach(button => {
     button.addEventListener('click', () => {

@@ -1,41 +1,73 @@
 <!DOCTYPE html>
 <html lang="ru">
+
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Игра Змейка</title>
-    <style>
-        body {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-        #gameContainer {
-            text-align: center;
-        }
-        #gameCanvas {
-            width: 100%;
-            height: auto;
-            max-width: 600px; /* Максимальная ширина канваса */
-            border: 1px solid black;
-        }
-        #score, #lives, #gameOverMessage {
-            font-size: 20px;
-            margin: 10px;
-        }
-    </style>
+    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, maximum-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Advent+Pro:ital,wght@0,100..900;1,100..900&family=Caveat:wght@400..700&family=Great+Vibes&family=Lobster&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Sofia+Sans+Condensed:ital,wght@0,1..1000;1,1..1000&display=swap"
+        rel="stylesheet">
+    
+    <link href="../Project/css/snake.css" rel="stylesheet">
+    <title>Змейка</title>
+    
 </head>
-<body>
-    <div id="gameContainer">
-        <div id="score">Счет: 0</div>
-        <div id="lives">Жизни: 3</div>
-        <canvas id="gameCanvas"></canvas>
-        <button id="startButton">Старт</button>
-        <div id="gameOverMessage" style="display:none;">Игра окончена! Нажмите "Старт", чтобы начать заново.</div>
-    </div>
 
-    <script src="game.js">
+<body>
+    <div id="playerInput">
+        <input type="text" inputmode="text" id="playerName" placeholder="Введите ваше имя" minlength="5" required>
+        <button id="saveName">Запомнить меня</button>
+    </div>
         
-    </script> <!-- Подключите ваш JavaScript файл -->
+    <div id="container">
+        <div id="wrap">
+            <div id="board">
+                <button id="startButton">Старт</button>
+                <button id="gameRules">Правила</button>
+                <div id="rules" class="hidden">
+                    <p id="rulesContent"></p>
+                    <span class="close-btn"> 
+                        <div class="line"></div> 
+                        <div class="line"></div> 
+                    </span>
+    
+                </div>
+                <button id="records">Рекорды</button>
+                <div id="recordsContainer" class="hidden">
+                    <h2>Лучшие 10 рекордов</h2>
+                    <div id="topRecords"></div>
+                    <span class="close-btn">
+                        <div class="line"></div> 
+                        <div class="line"></div> 
+                    </span>
+                </div>
+                
+            </div>
+            <div id="scoreAndLives">
+                <div id="curName"></div>
+                <div id="score">Счет: 0</div>
+                <div id="lives">Жизни: 3</div>
+            </div>
+        </div>
+       
+        <canvas id="gameCanvas"></canvas>
+        <div id="gameOver">
+            <h2>Игра окончена!</h2>
+            <p id="finalScore"></p>
+            <button id="restartButton">Начать заново</button>
+        </div>
+        <div id="controls">
+            <button id="up">&uarr;</button>
+            <div class="horizontal-controls">
+                <button id="left">&larr;</button>
+                <button id="right">&rarr;</button>
+            </div>
+            <button id="down">&darr;</button>
+        </div>
+    </div>
+    <script src="../Project/js/ajax.js"></script>
+    <script src="../Project/js/snake.js"></script>
 </body>
 </html>

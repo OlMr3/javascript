@@ -4,7 +4,6 @@ class Game {
         this.canvas = document.getElementById(canvasId);
         this.ctx = this.canvas.getContext('2d');
         this.cellSize = 25;
-        /* this.updateDimensions();*/
         this.width = Math.floor(window.innerWidth * 0.7 / this.cellSize) * this.cellSize;  // 70% ширины окна
         this.height = Math.floor(window.innerHeight * 0.7 / this.cellSize) * this.cellSize; // 70% высоты окна
         this.canvas.width = this.width;
@@ -28,11 +27,9 @@ class Game {
             this.playerName = document.getElementById('playerName').value;
             if(this.playerName){
                 document.getElementById('curName').textContent = this.playerName;
-                console.log('Имя игрока:', this.playerName);
                 document.getElementById('playerInput').style.display = 'none';
                 document.getElementById('container').style.visibility = 'visible';
                 window.scrollTo(0,0);
-              /*  this.openFullscreen();*/
             } else {
                 alert('Введите имя')
             }
@@ -109,28 +106,7 @@ this.controls.addEventListener('touchstart', (event) => {
 
         this.resize();
     }
-    /* updateDimensions() {
-         // Устанавливаем cellSize в зависимости от ширины окна
-         const minCellSize = 20; // Минимальный размер клетки
-         const maxCellSize = 30; // Максимальный размер клетки
- 
-         // Пример: cellSize будет 5% от ширины окна, но не меньше minCellSize и не больше maxCellSize
-         this.cellSize = Math.min(Math.max(Math.floor(window.innerWidth * 0.05), minCellSize), maxCellSize);
- 
-         // Обновление размеров канваса
-         this.width = Math.floor(window.innerWidth * 0.8 / this.cellSize) * this.cellSize;
-         this.height = Math.floor(window.innerHeight * 0.8 / this.cellSize) * this.cellSize;
- 
-         // Обновление канваса
-         this.canvas.width = this.width;
-         this.canvas.height = this.height;
- 
-         // Пересчет количества колонок и строк
-         this.cols = Math.floor(this.width / this.cellSize);
-         this.rows = Math.floor(this.height / this.cellSize);
-     }*/
     resize() {
-        /* this.updateDimensions();*/
     const maxWidth = 1000; // Максимальная ширина канваса
     const maxHeight = 800; // Минимальная высота канваса
 
@@ -143,8 +119,6 @@ this.controls.addEventListener('touchstart', (event) => {
         }
         this.width = Math.min(Math.floor(window.innerWidth * 0.7 / this.cellSize) * this.cellSize, maxWidth);
         this.height = Math.min(Math.floor(window.innerHeight * 0.7 / this.cellSize) * this.cellSize, maxHeight);
-       /* this.width = Math.floor(window.innerWidth * 0.8 / this.cellSize) * this.cellSize;
-        this.height = Math.floor(window.innerHeight * 0.8 / this.cellSize) * this.cellSize;*/
         if (window.innerWidth <= 950){
             this.width = 330;
             this.height = 390;
@@ -159,8 +133,6 @@ this.controls.addEventListener('touchstart', (event) => {
         this.food.size = this.cellSize; 
         this.bomb.size = this.cellSize;
         this.heart.size = this.cellSize;
-        /*const oldCols = Math.floor(oldWidth / this.cellSize);
-        const oldRows = Math.floor(oldHeight / this.cellSize);*/
         this.cols = Math.floor(this.width / this.cellSize);
         this.rows = Math.floor(this.height / this.cellSize);
         this.snake.reset();
@@ -260,7 +232,6 @@ this.controls.addEventListener('touchstart', (event) => {
                 // Если змейка врезалась в стену или в себя
                 this.lives--;
                 this.updateScoreAndLives();
-                /* document.getElementById('lives').innerText = `Жизни: ${this.lives}`;*/
                 this.deadSound.play();
                 if (navigator.vibrate){
                     navigator.vibrate(200);
@@ -281,8 +252,7 @@ this.controls.addEventListener('touchstart', (event) => {
         document.getElementById('finalScore').innerText = `Ваш счет: ${this.score}`;
         document.getElementById('gameOver').style.display = 'block';
         document.getElementById('restartButton').style.display = 'block';
-        console.log('Имя игрока перед обновлением счета:', this.playerName);
-        updatePlayerScore(this.playerName, this.score);
+        updatePlayerScore(this.playerName, this.score); //передаем имя игрока и финальный счет в файл ajax для обновления рекорда
 
     }
     draw() {
@@ -318,7 +288,7 @@ class Snake {
         const startX = Math.floor(this.game.cols / 2) * this.size;
         const startY = Math.floor(this.game.rows / 2) * this.size;
         this.body = [{ x: startX, y: startY }];
-        this.direction = { x: 0, y: 0 }; // Начальное направление вправо
+        this.direction = { x: 0, y: 0 }; 
         this.image = new Image();
         this.image.src = 'images/head.svg';
         this.image.onload = () => {
@@ -331,7 +301,8 @@ class Snake {
         const startY = Math.floor(this.game.rows / 2) * this.size;
         this.body = [{ x: startX, y: startY }];
         this.direction = { x: 0, y: 0 };
-    }
+    } 
+    //движение
     move() {
         const head = { x: this.body[0].x + this.direction.x * this.size, y: this.body[0].y + this.direction.y * this.size };
 
@@ -353,6 +324,7 @@ class Snake {
         }
         return false;
     }
+    //проверка на столкновения со стеной и собой
     checkCollision() {
         const head = { x: this.body[0].x + this.direction.x * this.size, y: this.body[0].y + this.direction.y * this.size };
         if (head.x + this.size < 0 || head.x - this.size >= this.game.width || head.y + this.size < 0 || head.y - this.size >= this.game.height) {
@@ -365,6 +337,7 @@ class Snake {
         }
         return false;
     }
+    //запрещаем движение в противоположную сторону
     setDirection(x, y) {
         if ((this.direction.x === 0 && x !== 0) || (this.direction.y === 0 && y !== 0)) {
             this.direction.x = x;
