@@ -10,3 +10,4 @@ function enterFullscreen() {
         elem.msRequestFullscreen();
     }
 }
+enterFullscreen();
