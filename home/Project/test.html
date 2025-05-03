@@ -80,6 +80,7 @@
             cursor: pointer;
             margin-bottom: 20px;
             transition: transform 0.2s ease;
+            
         }
         #board>button:hover{
             transform: scale(1.1);
@@ -238,6 +239,7 @@
 
         #controls {
           display: none;
+          
            /* position: absolute;
             bottom: 0;
             right: 0;
@@ -251,7 +253,7 @@
 .horizontal-controls {
     display: flex;
     justify-content: space-between;
-    width: 200px; /* Ширина между кнопками влево и вправо */
+    width: 300px; /* Ширина между кнопками влево и вправо */
 }
 
 #controls button {
@@ -260,7 +262,7 @@
     font-size: 30px; /* Размер текста на кнопках */
     background-color: #5fad8e;
             color: white;
-            margin: 0 5px;
+            margin: 10px 5px;
             width: 80px;
             text-align: center;
 }
@@ -281,14 +283,14 @@
             flex-direction: row;
             justify-content: space-between;
         }
-        #board>button{margin-right: 20px;}
+        #board>button{margin-left: 20px;}
       
         #scoreAndLives{
             flex-direction: row;
             justify-content: space-between;
         }
         #scoreAndLives>div{
-            margin-right: 20px;
+            margin-left: 20px;
           
         }
         #rules,
@@ -321,11 +323,11 @@
         #board>button{
             padding: 2px;
             font-size: 16px;
-            margin-right: 10px;
+            margin-left: 5px;
         }
         #scoreAndLives>div {
             font-size: 16px;
-            margin-right: 10px;
+            margin-left: 5px;
         }
         #rules,
         #recordsContainer{
@@ -334,13 +336,13 @@
     }
 
     @media (max-width: 650px){
-        #board>button{
+       /* #board>button{
             padding: 2px;
             font-size: 12px;
         }
         #scoreAndLives>div {
             font-size: 12px;
-        }
+        }*/
         #rules,
         #recordsContainer{
             font-size: 14px;
@@ -364,9 +366,24 @@
             padding: 5px 5px;
             font-size: 14px;
            
-            margin-left: 5px;
+            margin-left: 20px;
         }
     }
+    @media (orientation: landscape) {
+    body {
+        display: none; /* Или любой другой стиль, чтобы скрыть контент */
+    }
+    .landscape-warning {
+        display: block; /* Показываем предупреждение о горизонтальной ориентации */
+    }
+}
+
+@media (orientation: portrait) {
+    .landscape-warning {
+        display: none; /* Скрываем предупреждение в портретной ориентации */
+    }
+}
+
 
     </style>
 </head>

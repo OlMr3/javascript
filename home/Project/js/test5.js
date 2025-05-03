@@ -74,6 +74,7 @@ class Game {
         this.controls = document.getElementById('controls');
 
 const handleDirectionChange = (direction) => {
+    if (!this.isGameRunning) return;
     switch (direction) {
         case 'up':
             this.snake.setDirection(0, -1);
