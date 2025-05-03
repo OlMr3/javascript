@@ -17,7 +17,7 @@ function handleOrientationChange() {
     } else {
         // Скрываем предупреждение
         warning.style.display = 'none';
-        document.body.style.display = 'block'; // Показываем контент
+        document.body.style.display = 'flex'; // Показываем контент
     }
 }
 
@@ -29,5 +29,5 @@ if (isMobile()) {
     handleOrientationChange();
 } else {
     // Если не мобильное устройство, показываем контент
-    document.body.style.display = 'block';
+    document.body.style.display = 'flex';
 }
