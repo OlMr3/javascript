@@ -150,7 +150,7 @@ this.controls.addEventListener('touchstart', (event) => {
             this.height = 390;
             if(window.innerWidth > window.innerHeight){
                 this.width = 390;
-                this.height = 300;
+                this.height = 270;
             }
         } 
         this.canvas.width = this.width;
