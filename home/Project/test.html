@@ -281,13 +281,8 @@
 
     @media (max-width: 1050px){
         
-
-
-
-       /* body {
-            justify-content: flex-start;
-        }*/
-        #container{
+        @media (orientation: portrait){
+            #container{
             flex-direction: column;
             justify-content: flex-start;
         }
@@ -309,6 +304,51 @@
             margin-left: 20px;
           
         }
+        #controls{
+            display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20px;
+    
+        }
+        }
+        @media (orientation: landscape){
+            body {
+                justify-content: space-between;
+        }
+        .horizontal-controls {
+            width: 200px;
+
+        }
+        #controls button {
+            width: 70px;
+        }
+
+       /* body {
+            justify-content: flex-start;
+        }*/
+       /* #container{
+            flex-direction: column;
+            justify-content: flex-start;
+        }
+        #wrap {
+            flex-direction: row;
+            justify-content: space-between;
+        }
+        #board{
+            flex-direction: row;
+            justify-content: space-between;
+        }
+        #board>button{margin-left: 20px;}
+      
+        #scoreAndLives{
+            flex-direction: row;
+            justify-content: space-between;
+        }
+        #scoreAndLives>div{
+            margin-left: 20px;
+          
+        }*/
         #rules,
         #recordsContainer{
             left: 50%;
@@ -335,6 +375,7 @@
             display: none;*/
         }
     }
+}
     @media (max-width: 750px){
         #board>button{
             padding: 2px;
