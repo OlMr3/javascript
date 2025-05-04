@@ -269,12 +269,13 @@ canvas {
     body {
       /*justify-content: space-between;*/
       overflow: auto;
+      padding-left: 25px;
     }
 #gameCanvas {
   margin-top: 10px;
 }
     #controls {
-      margin-left:40px;
+      margin-left:20px;
     }
 
     .horizontal-controls {
