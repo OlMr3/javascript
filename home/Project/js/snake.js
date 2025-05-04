@@ -3,13 +3,17 @@ class Game {
         this.container = document.getElementById('container')
         this.canvas = document.getElementById(canvasId);
         this.ctx = this.canvas.getContext('2d');
-        this.cellSize = 25;
-        this.width = Math.floor(window.innerWidth * 0.7 / this.cellSize) * this.cellSize;  // 70% ширины окна
-        this.height = Math.floor(window.innerHeight * 0.7 / this.cellSize) * this.cellSize; // 70% высоты окна
+        this.cellSize = 30;
+        this.width;
+        this.height;
+       /* this.width = Math.floor(window.innerWidth * 0.7 / this.cellSize) * this.cellSize;  // 70% ширины окна
+        this.height = Math.floor(window.innerHeight * 0.7 / this.cellSize) * this.cellSize; // 70% высоты окна*/
         this.canvas.width = this.width;
         this.canvas.height = this.height;
-        this.cols = Math.floor(this.width / this.cellSize);
-        this.rows = Math.floor(this.height / this.cellSize);
+        /*this.cols = Math.floor(this.width / this.cellSize);
+        this.rows = Math.floor(this.height / this.cellSize);*/
+        this.cols;
+        this.rows;
         this.snake = new Snake(this);
         this.food = new Food(this);
         this.bomb = new Bomb(this);
@@ -107,49 +111,57 @@ this.controls.addEventListener('touchstart', (event) => {
         this.resize();
     }
     resize() {
-    const maxWidth = 1000; // Максимальная ширина канваса
+    const maxWidth = 990; // Максимальная ширина канваса
     const maxHeight = 800; // Минимальная высота канваса
+    const fixedCols = 33;
+    const fixedRows = 23;
 
-        const oldWidth = this.width;
-        const oldHeight = this.height;
-        if (window.innerWidth <= 950){
-            this.cellSize = 11;
-        } else {
+        /*const oldWidth = this.width;
+        const oldHeight = this.height;*/
+        if (window.innerWidth <= 650){
+            this.cellSize = 10;
+        } else if (window.innerWidth <= 950){
+            this.cellSize = 15;
+        } else{
             this.cellSize = 25;
         }
-        this.width = Math.min(Math.floor(window.innerWidth * 0.7 / this.cellSize) * this.cellSize, maxWidth);
-        this.height = Math.min(Math.floor(window.innerHeight * 0.7 / this.cellSize) * this.cellSize, maxHeight);
-        if (window.innerWidth <= 950){
-            this.width = 363;
-            this.height = 352;
+       /*this.width = Math.min(Math.floor(window.innerWidth * 0.7 / this.cellSize) * this.cellSize, maxWidth);
+        this.height = Math.min(Math.floor(window.innerHeight * 0.7 / this.cellSize) * this.cellSize, maxHeight);*/
+        this.width = Math.min(fixedCols * this.cellSize, maxWidth);
+        this.height = Math.min(fixedRows * this.cellSize, maxHeight);
+       /* if (window.innerWidth <= 950){
+            this.width = 390;
+            this.height = 320;
             if(window.innerWidth > window.innerHeight){
-                this.width = 363;
-                this.height = 352;
+                this.width = 390;
+                this.height = 320;
             }
-        } 
+        } */
         this.canvas.width = this.width;
         this.canvas.height = this.height;
         this.snake.size = this.cellSize;
         this.food.size = this.cellSize; 
         this.bomb.size = this.cellSize;
         this.heart.size = this.cellSize;
-        this.cols = Math.floor(this.width / this.cellSize);
-        this.rows = Math.floor(this.height / this.cellSize);
+       /* this.cols = Math.floor(this.width / this.cellSize);
+        this.rows = Math.floor(this.height / this.cellSize);*/
+        this.cols = fixedCols;
+        this.rows = fixedRows;
         this.snake.reset();
-        if (this.food.position.x >= oldWidth ||
-            this.food.position.y >= oldHeight ||
+        if (/*this.food.position.x >= oldWidth ||
+            this.food.position.y >= oldHeight ||*/
             !this.isInBounds(this.food.position)) {
             // Если еда вне границ, переместить её в новые границы
             this.food.spawn();
         }
-        if (this.bomb.position.x >= oldWidth ||
-            this.bomb.position.y >= oldHeight ||
+        if (/*this.bomb.position.x >= oldWidth ||
+            this.bomb.position.y >= oldHeight ||*/
             !this.isInBounds(this.bomb.position)) {
             // Если бомба вне границ, переместить её в новые границы
             this.bomb.spawn();
         }
-        if (this.heart.position.x >= oldWidth ||
-            this.heart.position.y >= oldHeight ||
+        if (/*this.heart.position.x >= oldWidth ||
+            this.heart.position.y >= oldHeight ||*/
             !this.isInBounds(this.heart.position)) {
             // Если сердце вне границ, переместить его в новые границы
             this.heart.spawn();
