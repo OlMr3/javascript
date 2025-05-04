@@ -113,7 +113,7 @@ this.controls.addEventListener('touchstart', (event) => {
         const oldWidth = this.width;
         const oldHeight = this.height;
         if (window.innerWidth <= 950){
-            this.cellSize = 15;
+            this.cellSize = 10;
         } else {
             this.cellSize = 25;
         }
@@ -121,10 +121,10 @@ this.controls.addEventListener('touchstart', (event) => {
         this.height = Math.min(Math.floor(window.innerHeight * 0.7 / this.cellSize) * this.cellSize, maxHeight);
         if (window.innerWidth <= 950){
             this.width = 330;
-            this.height = 390;
+            this.height = 320;
             if(window.innerWidth > window.innerHeight){
-                this.width = 390;
-                this.height = 270;
+                this.width = 330;
+                this.height = 320;
             }
         } 
         this.canvas.width = this.width;
