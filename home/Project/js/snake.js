@@ -113,18 +113,18 @@ this.controls.addEventListener('touchstart', (event) => {
         const oldWidth = this.width;
         const oldHeight = this.height;
         if (window.innerWidth <= 950){
-            this.cellSize = 10;
+            this.cellSize = 11;
         } else {
             this.cellSize = 25;
         }
         this.width = Math.min(Math.floor(window.innerWidth * 0.7 / this.cellSize) * this.cellSize, maxWidth);
         this.height = Math.min(Math.floor(window.innerHeight * 0.7 / this.cellSize) * this.cellSize, maxHeight);
         if (window.innerWidth <= 950){
-            this.width = 330;
-            this.height = 320;
+            this.width = 363;
+            this.height = 352;
             if(window.innerWidth > window.innerHeight){
-                this.width = 330;
-                this.height = 320;
+                this.width = 363;
+                this.height = 352;
             }
         } 
         this.canvas.width = this.width;
