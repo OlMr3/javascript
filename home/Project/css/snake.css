@@ -270,7 +270,9 @@ canvas {
       /*justify-content: space-between;*/
       overflow: auto;
     }
-
+#gameCanvas {
+  margin-top: 10px;
+}
     #controls {
       margin-left:40px;
     }
